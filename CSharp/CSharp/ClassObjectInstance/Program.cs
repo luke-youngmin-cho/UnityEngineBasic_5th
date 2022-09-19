@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace ClassObjectInstance
 {
@@ -16,7 +17,6 @@ namespace ClassObjectInstance
             // C# 에서 생성자를 호출하는 과정이 객체화 이면서 인스턴스화 이다. 
             // 인스턴스 ⊂ 객체
             Human human = new Human();
-
             // . 연산자 
             // 멤버 접근 연산자
             human.height = 150.0f;
@@ -30,12 +30,25 @@ namespace ClassObjectInstance
             // 지역변수처럼 반드시 초기화를 할 필요가 없다.
             //char tempChar;
             //Console.WriteLine($"성별 : {tempChar}");
+
+            Console.WriteLine(Human.Instance.name);
+
+            Human human2 = new Human();
+            human2.height = 160.0f;
+            human2.name = "만수";
+            human2.Breath();
+
+            Console.WriteLine(Human.Instance.name);
         }
     }
 
     // 클래스도 사용자정의 '자료형'
     public class Human
-    { 
+    {
+        // static 키워드
+        // 객체화가 불가능한 키워드 -> Human 클래스타입의 객체를 만들었을때 해당 객체에는 Instance 라는 멤버변수가 없다.
+        public static Human Instance;
+
         // 보호수준을 결정하는 접근 제한자
         // public : 접근 제한 없음
         // private : 해당 객체 외 접근 제한
@@ -67,9 +80,13 @@ namespace ClassObjectInstance
         // ex) class, array, string ..
         public Human()
         {
-            height = 160.0f;
-            weight = 300.0f;
-            isReseting = false;
+            // this 키워드
+            // 객체 자기자신 참조 반환키워드
+            Instance = this;
+
+            this.height = 160.0f;
+            this.weight = 300.0f;
+            this.isReseting = false;
         }
 
         // 소멸자
@@ -82,7 +99,7 @@ namespace ClassObjectInstance
 
         public void Breath()
         {
-            Console.WriteLine($"{name} (이)가 숨을 쉰다");
+            Console.WriteLine($"{this.name} (이)가 숨을 쉰다");
         }
     }
 }
