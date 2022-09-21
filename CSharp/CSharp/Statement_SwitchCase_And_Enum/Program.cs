@@ -6,13 +6,13 @@ namespace Statement_SwitchCase_And_Enum
     // 기본적으로 System.int32 자료형
     enum PlayerStates
     {
-        Idle,
-        Move,
-        Jump,
-        Dash,
-        Attack,
-        Hurt,
-        Die
+        Idle,   // == ...000000000
+        Move,   // == ...000000001
+        Jump,   // == ...000000010
+        Dash,   // == ...000000011
+        Attack, // == ...000000100
+        Hurt,   // == ...000000101
+        Die     // == ...000000110
     }
 
     // Flags 속성은 enum 타입의 ToString() 변환시에 각 비트별로 string 변환해주는 속성이다.
