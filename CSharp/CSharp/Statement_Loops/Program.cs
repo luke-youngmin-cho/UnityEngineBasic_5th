@@ -16,9 +16,9 @@ namespace Statement_Loops
             int[] arrInt = { 23, 42, 12, 21, 37 };
 
             int count = 0;
-            while (count < arrInt.Length)
+            while (true)
             {
-                Console.WriteLine(arrInt[count]);
+                PrintInt(arrInt[count]);
                 count++;
             }
 
@@ -40,6 +40,11 @@ namespace Statement_Loops
             {
                 Console.WriteLine(arrInt[i]);
             }
+        }
+
+        private static void PrintInt(int num)
+        {
+            Console.WriteLine(num);
         }
     }
 }
