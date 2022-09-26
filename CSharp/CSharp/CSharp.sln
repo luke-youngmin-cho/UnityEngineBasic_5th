@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Array", "Array\Array.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Statement_Loops", "Statement_Loops\Statement_Loops.csproj", "{2D4C5FA0-58CC-48A3-912C-6C0010D008E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example02_Array2D", "Example02_Array2D\Example02_Array2D.csproj", "{9D619E59-3363-4B94-B928-D2FDD4F60727}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example02_Array2D", "Example02_Array2D\Example02_Array2D.csproj", "{9D619E59-3363-4B94-B928-D2FDD4F60727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structure", "Structure\Structure.csproj", "{FA127C52-3E24-4DE7-BBB1-07E9070E9B01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{9D619E59-3363-4B94-B928-D2FDD4F60727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D619E59-3363-4B94-B928-D2FDD4F60727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D619E59-3363-4B94-B928-D2FDD4F60727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA127C52-3E24-4DE7-BBB1-07E9070E9B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA127C52-3E24-4DE7-BBB1-07E9070E9B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA127C52-3E24-4DE7-BBB1-07E9070E9B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA127C52-3E24-4DE7-BBB1-07E9070E9B01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
