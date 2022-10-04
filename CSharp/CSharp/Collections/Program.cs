@@ -66,6 +66,7 @@ namespace Collections
             list.Add(4);
             list.Remove(3);
             list.RemoveAt(0);
+            Console.WriteLine(list[0]);
 
             // LinkedList<T>
             // C# 의 Doubly-Linked list 일반형
@@ -74,6 +75,40 @@ namespace Collections
             linkedList.Remove(3.0f);
             linkedList.RemoveFirst();
 
+            // Queue<T>
+            Queue<bool> boolQueue = new Queue<bool>();
+            boolQueue.Enqueue(true);
+            boolQueue.Enqueue(false);
+
+            // Stack<T>
+            Stack<double> doubleStack = new Stack<double>();
+            doubleStack.Push(1.0f);
+            doubleStack.Pop();
+
+            // Dictionary<T>
+            // HashTable 의 제네릭 타입
+            // 중복 키를 Add 시 에러
+            Dictionary<string, float> points = new Dictionary<string, float>();
+
+            // key 존재하는지 검색 (인덱서에 Hash("철수") 넣고 예외 던져지는지 체크)
+            if (points.ContainsKey("철수") == false)
+            {
+                points.Add("철수", 1.0f);
+            }
+
+            // value 가져오기 시도 (인덱서에 Hash("철수") 넣고 예외 던져지는지 체크, 안던져지면 out 파라미터에 value 반환)
+            if (points.TryGetValue("철수", out float value))
+            {
+                Console.WriteLine(value);
+            }
+            Console.WriteLine(points["철수"]);
+
+            // HashSet<T>
+            // 중복을 허용하지않는 동적배열 (해시의 집합을 표현하기위한 자료구조)
+            // 중복 키를 Add 시 그냥 무시
+            HashSet<int> intSet = new HashSet<int>();
+            intSet.Add(1);
+            intSet.Add(1);
         }
     } 
 }
