@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MyDynamicArray
 {
-    internal class MyDynamicArray
+    public class MyDynamicArray<T> : IEnumerable<T>
     {
         private const int DEFAULT_SIZE = 1;
-        private int[] _data = new int[DEFAULT_SIZE];
-        public int this[int index]
+        private T[] _data = new T[DEFAULT_SIZE];
+        public T this[int index]
         {
             get
             {
@@ -23,16 +24,15 @@ namespace MyDynamicArray
             }
         }
         public int Count;
-        public int Capacity;
+        public int Capacity => _data.Length; // get 접근자의 람다식 표현 , 람다식 : 익명함수 표현방법
 
-        public void Add(int item)
+        public void Add(T item)
         {
             // 배열의 크기가 모자라면
             if (Count >= Capacity)
             {
-                Capacity *= 2;
                 // 2배짜리 새로운 배열 생성
-                int[] tmp = new int[Capacity];
+                T[] tmp = new T[Capacity * 2];
 
                 // 기존 데이터를 새로운 배열에 복제
                 for (int i = 0; i < Count; i++)
@@ -47,7 +47,13 @@ namespace MyDynamicArray
             _data[Count] = item;
             Count++;
         }
-        
+
+        /// <summary>
+        /// 특정 인덱스에 있는 데이터를 지우고
+        /// 그 뒤 모든 인덱스 데이터들을 한칸씩 앞으로 당겨줌
+        /// </summary>
+        /// <param name="index">지우고싶은 데이터의 인덱스</param>
+        /// <returns>true : 삭제됨 , false : 삭제안됨</returns>
         public bool RemoveAt(int index)
         {
             if (index < 0 || index > Count - 1)
@@ -57,50 +63,74 @@ namespace MyDynamicArray
             {
                 _data[i] = _data[i + 1];
             }
-            
+
             Count--;
-            _data[Count] = 0;
+            _data[Count] = default(T);
             return true;
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        public bool Remove(T item)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (Comparer<T>.Default.Compare(_data[i], item) == 0)
+                    return RemoveAt(i);
+            }
+            return false;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new MyDynamicArrayEnum<T>(_data, this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return new MyDynamicArrayEnum<T>(_data, this);
+        }
     }
+
+    public class MyDynamicArrayEnum<T> : IEnumerator<T>
+    {
+        private readonly T[] _data;
+        private readonly MyDynamicArray<T> _dynamicArray;
+        private int _index = -1;
+        private int _count => _dynamicArray.Count;
+        public T Current
+        {
+            get
+            {
+                return _data[_index];
+            }
+        }
+
+
+        object IEnumerator.Current => Current;
+
+        public MyDynamicArrayEnum(T[] data, MyDynamicArray<T> dynamicArray)
+        {
+            _data = data;
+            _dynamicArray = dynamicArray;
+        }
+
+
+        public void Dispose()
+        {
+            // nothig to do
+        }
+
+        public bool MoveNext()
+        {
+            _index++;
+            return _index >= 0 && _index < _count;
+        }
+
+        public void Reset()
+        {
+            _index = -1;
+        }
+    }
+
 }
 
 //프로퍼티 ?
