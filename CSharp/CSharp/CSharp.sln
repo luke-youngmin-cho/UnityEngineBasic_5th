@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32819.101
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstProject", "FirstProject\FirstProject.csproj", "{22C3560D-6DA9-4143-A4DB-35AC5042002E}"
 EndProject
@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassInheritance", "ClassIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Collections", "Collections\Collections.csproj", "{98C9B912-D788-4F8F-A014-D798099CF3F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDynamicArray", "MyDynamicArray\MyDynamicArray.csproj", "{C9C4AF5D-EE6A-44F9-AE76-6B4D70A98A2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDynamicArray", "MyDynamicArray\MyDynamicArray.csproj", "{C9C4AF5D-EE6A-44F9-AE76-6B4D70A98A2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLinkedList", "MyLinkedList\MyLinkedList.csproj", "{13DBCEFC-2681-4280-B2B4-05B3A62AF869}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{C9C4AF5D-EE6A-44F9-AE76-6B4D70A98A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9C4AF5D-EE6A-44F9-AE76-6B4D70A98A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9C4AF5D-EE6A-44F9-AE76-6B4D70A98A2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13DBCEFC-2681-4280-B2B4-05B3A62AF869}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13DBCEFC-2681-4280-B2B4-05B3A62AF869}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13DBCEFC-2681-4280-B2B4-05B3A62AF869}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13DBCEFC-2681-4280-B2B4-05B3A62AF869}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
