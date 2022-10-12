@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32802.440
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstProject", "FirstProject\FirstProject.csproj", "{22C3560D-6DA9-4143-A4DB-35AC5042002E}"
 EndProject
@@ -37,9 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDynamicArray", "MyDynamic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLinkedList", "MyLinkedList\MyLinkedList.csproj", "{13DBCEFC-2681-4280-B2B4-05B3A62AF869}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDictionaryOfT", "MyDictionaryOfT\MyDictionaryOfT.csproj", "{CF58F71F-8869-4BFB-9762-58722BB5A9AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDictionaryOfT", "MyDictionaryOfT\MyDictionaryOfT.csproj", "{CF58F71F-8869-4BFB-9762-58722BB5A9AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBinaryTreeOfT", "MyBinaryTree\MyBinaryTreeOfT.csproj", "{8213162D-690F-4D73-B4AA-ABBBF7B0E563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBinaryTreeOfT", "MyBinaryTree\MyBinaryTreeOfT.csproj", "{8213162D-690F-4D73-B4AA-ABBBF7B0E563}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingArgorithms", "SortingArgorithms\SortingArgorithms.csproj", "{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{8213162D-690F-4D73-B4AA-ABBBF7B0E563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8213162D-690F-4D73-B4AA-ABBBF7B0E563}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8213162D-690F-4D73-B4AA-ABBBF7B0E563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
