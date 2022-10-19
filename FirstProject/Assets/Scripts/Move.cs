@@ -23,7 +23,7 @@ public class Move : MonoBehaviour
         // 이동벡터 = 속도 * 시간
         // 이동벡터변화량 = 속도 * 시간변화량
         //transform.position += dir * Time.fixedDeltaTime;
-        transform.Translate(dir * MoveSpeed * Time.fixedDeltaTime, Space.World);
+        transform.Translate(dir * MoveSpeed * Time.fixedDeltaTime);
 
         // Quaternion
         // 사원수, 각도를 4개의 원소로 표현하기위한 체계
