@@ -31,7 +31,9 @@ public class EnemySpawner : MonoBehaviour
             Vector3 spawnPos = new Vector3(Random.Range(_minX, _maxX),
                                            0.0f,
                                            Random.Range(_minZ, _maxZ));
-            Instantiate(_enemyPrefab, spawnPos, Quaternion.identity);
+            
+            GameObject go = Instantiate(_enemyPrefab, spawnPos, Quaternion.identity);
+            go.transform.Rotate(Vector3.up * 180.0f);
             _timer = _spawnTime;
         }
         else
