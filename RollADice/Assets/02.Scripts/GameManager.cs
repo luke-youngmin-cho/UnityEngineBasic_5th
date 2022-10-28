@@ -87,24 +87,28 @@ public class GameManager : MonoBehaviour
     private List<TileStar> _tileStars = new List<TileStar>();
     private int _tilesCount;
     private int _current = -1;
-    
+    private bool _isPlayerMoving = false;
 
     public void RollANormalDice()
     {
-        if (NormalDiceNum > 0)
+        if (NormalDiceNum > 0 &&
+            _isPlayerMoving == false)
         {
+            _isPlayerMoving = true;
             NormalDiceNum--;
             int diceValue = Random.Range(1, 7);
-            MovePlayer(diceValue);
+            DiceAnimationUI.Instance.PlayDiceAnimation(diceValue);
         }
     }
 
     public void RollAGoldenDice(int diceValue)
     {
-        if (GoldenDiceNum > 0)
+        if (GoldenDiceNum > 0 &&
+            _isPlayerMoving == false)
         {
+            _isPlayerMoving = true;
             GoldenDiceNum--;
-            MovePlayer(diceValue);
+            DiceAnimationUI.Instance.PlayDiceAnimation(diceValue);
         }
     }
 
@@ -166,5 +170,11 @@ public class GameManager : MonoBehaviour
         _tilesCount = _tiles.Count;
         _current = -1;
         Direction = Constants.DIRECTION_POSITIVE;
+    }
+
+    private void Start()
+    {
+        DiceAnimationUI.Instance.OnAnimationFinished += MovePlayer;
+        DiceAnimationUI.Instance.OnAnimationFinished += (diceValue) => _isPlayerMoving = false;
     }
 }
