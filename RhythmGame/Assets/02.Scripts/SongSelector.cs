@@ -8,8 +8,9 @@ public class SongSelector : MonoBehaviour
     private void Awake()
     {
         if (Instance != null)
-            Destroy(Instance);
+            Destroy(gameObject);
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public string SelectedSongName;

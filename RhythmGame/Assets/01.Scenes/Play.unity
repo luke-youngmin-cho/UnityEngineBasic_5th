@@ -542,6 +542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 412522579}
   - component: {fileID: 412522580}
+  - component: {fileID: 412522581}
   m_Layer: 0
   m_Name: NoteSpawner_K
   m_TagString: Untagged
@@ -616,6 +617,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &412522581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412522578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f17beec21106e140ad578a41c6751c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: 0
+  _notePrefab: {fileID: 0}
 --- !u!1 &473692764
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,6 +809,7 @@ GameObject:
   m_Component:
   - component: {fileID: 528216961}
   - component: {fileID: 528216962}
+  - component: {fileID: 528216963}
   m_Layer: 0
   m_Name: NoteSpawner_S
   m_TagString: Untagged
@@ -868,6 +884,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &528216963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528216960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f17beec21106e140ad578a41c6751c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: 0
+  _notePrefab: {fileID: 0}
 --- !u!1 &532569672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,6 +1365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1077636126}
   - component: {fileID: 1077636127}
+  - component: {fileID: 1077636128}
   m_Layer: 0
   m_Name: NoteSpawner_F
   m_TagString: Untagged
@@ -1409,6 +1440,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1077636128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077636125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f17beec21106e140ad578a41c6751c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: 0
+  _notePrefab: {fileID: 0}
 --- !u!1 &1083831860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,6 +1633,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1210093554}
   - component: {fileID: 1210093555}
+  - component: {fileID: 1210093556}
   m_Layer: 0
   m_Name: NoteSpawner_Space
   m_TagString: Untagged
@@ -1662,6 +1708,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1210093556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210093553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f17beec21106e140ad578a41c6751c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: 0
+  _notePrefab: {fileID: 0}
 --- !u!1 &1210613101
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,6 +2274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583719878}
   - component: {fileID: 1583719879}
+  - component: {fileID: 1583719880}
   m_Layer: 0
   m_Name: NoteSpawner_J
   m_TagString: Untagged
@@ -2288,6 +2349,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1583719880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583719877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f17beec21106e140ad578a41c6751c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: 0
+  _notePrefab: {fileID: 0}
 --- !u!1 &1611220638
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,6 +2698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1816340545}
   - component: {fileID: 1816340546}
+  - component: {fileID: 1816340547}
   m_Layer: 0
   m_Name: NoteSpawner_D
   m_TagString: Untagged
@@ -2697,6 +2773,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1816340547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816340544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f17beec21106e140ad578a41c6751c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: 0
+  _notePrefab: {fileID: 0}
 --- !u!1 &1998582161
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,6 +2797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1998582162}
   - component: {fileID: 1998582163}
+  - component: {fileID: 1998582164}
   m_Layer: 0
   m_Name: NoteSpawner_L
   m_TagString: Untagged
@@ -2781,6 +2872,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1998582164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998582161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f17beec21106e140ad578a41c6751c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: 0
+  _notePrefab: {fileID: 0}
 --- !u!1 &2105237192
 GameObject:
   m_ObjectHideFlags: 0
