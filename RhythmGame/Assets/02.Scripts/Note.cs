@@ -42,6 +42,6 @@ public class Note : MonoBehaviour
 
     private void Move()
     {
-        transform.position += Vector3.down * Time.fixedDeltaTime;
+        transform.position += Vector3.down * NoteSpawnManager.Instance.NoteSpeedScale * Time.fixedDeltaTime;
     }
 }

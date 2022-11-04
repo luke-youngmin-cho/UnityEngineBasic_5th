@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Video;
 public class NoteSpawnManager : MonoBehaviour
 {
+    public static NoteSpawnManager Instance;
+
     [SerializeField] private Transform _spawnersParent;
     [SerializeField] private Transform _hittersParent;
     [SerializeField] private VideoPlayer _videoPlayer;
@@ -15,13 +17,23 @@ public class NoteSpawnManager : MonoBehaviour
 
     private Dictionary<KeyCode, NoteSpawner> _spawners = new Dictionary<KeyCode, NoteSpawner>();
     private Queue<NoteData> _noteDataQueue = new Queue<NoteData>();
-    
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(E_Init());
+    }
 
     public void StartSpawn()
     {
         if (_noteDataQueue.Count > 0)
         {
             StartCoroutine(E_Spawning());
+            Debug.Log($"{NoteFallingDistance}, {NoteFallingTime}");
             Invoke("PlayVideo", NoteFallingTime);
         }
     }
@@ -66,6 +78,8 @@ public class NoteSpawnManager : MonoBehaviour
         IOrderedEnumerable<NoteData> noteDataFilted = SongSelector.Instance.Data.Notes.OrderBy(note => note.Time);
         foreach (NoteData noteData in noteDataFilted)
             _noteDataQueue.Enqueue(noteData);
+
+        StartSpawn();
     }
 
     private void PlayVideo()
