@@ -75,8 +75,8 @@ public class NoteSpawnManager : MonoBehaviour
         yield return new WaitUntil(() => SongSelector.Instance != null &&
                                          SongSelector.Instance.IsLoaded);
 
-        IOrderedEnumerable<NoteData> noteDataFilted = SongSelector.Instance.Data.Notes.OrderBy(note => note.Time);
-        foreach (NoteData noteData in noteDataFilted)
+        IOrderedEnumerable<NoteData> noteDataFiltered = SongSelector.Instance.Data.Notes.OrderBy(note => note.Time);
+        foreach (NoteData noteData in noteDataFiltered)
             _noteDataQueue.Enqueue(noteData);
 
         StartSpawn();

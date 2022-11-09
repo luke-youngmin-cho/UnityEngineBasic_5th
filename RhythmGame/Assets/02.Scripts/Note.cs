@@ -21,18 +21,24 @@ public class Note : MonoBehaviour
             case HitTypes.None:
                 break;
             case HitTypes.Bad:
-                break;
             case HitTypes.Miss:
+                GameStatus.CurrentCombo = 0;
                 break;
             case HitTypes.Good:
+                GameStatus.CurrentCombo++;
                 break;
             case HitTypes.Great:
+                GameStatus.CurrentCombo++;
                 break;
             case HitTypes.Cool:
+                GameStatus.CurrentCombo++;
                 break;
             default:
                 break;
         }
+
+        PopUpTextManager.Instance.PopUp(hitType);
+        Destroy(gameObject);
     }
 
     private void FixedUpdate()
