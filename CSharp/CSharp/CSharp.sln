@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDictionaryOfT", "MyDictio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBinaryTreeOfT", "MyBinaryTree\MyBinaryTreeOfT.csproj", "{8213162D-690F-4D73-B4AA-ABBBF7B0E563}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingArgorithms", "SortingArgorithms\SortingArgorithms.csproj", "{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortingArgorithms", "SortingArgorithms\SortingArgorithms.csproj", "{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyListObservable", "MyListObservable\MyListObservable.csproj", "{0B257A79-C684-4D13-9EFB-2C3AD02D1103}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,6 +131,10 @@ Global
 		{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F9E1B30-1E9E-44D4-A182-FED9FD0BC336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B257A79-C684-4D13-9EFB-2C3AD02D1103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B257A79-C684-4D13-9EFB-2C3AD02D1103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B257A79-C684-4D13-9EFB-2C3AD02D1103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B257A79-C684-4D13-9EFB-2C3AD02D1103}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

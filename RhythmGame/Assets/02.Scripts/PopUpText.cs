@@ -4,11 +4,12 @@ using UnityEngine;
 using TMPro;
 public class PopUpText : MonoBehaviour
 {
-    private TMP_Text _text;
-    private Vector3 _startPos;
+    [SerializeField] private TMP_Text _text;
+    [SerializeField] private Vector3 _startPos;
     [SerializeField] private Vector3 _dir = Vector3.up;
     [SerializeField] private float _moveSpeed = 0.5f;
     [SerializeField] private float _fadeSpeed = 0.5f;
+
 
     public void PopUp()
     {
@@ -21,6 +22,11 @@ public class PopUpText : MonoBehaviour
         gameObject.SetActive(false);
         _text.text = text;
         gameObject.SetActive(true);
+    }
+
+    public void ResetPos()
+    {
+        transform.position = _startPos;
     }
 
     private void Awake()
