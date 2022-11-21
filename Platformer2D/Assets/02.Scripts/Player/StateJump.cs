@@ -40,7 +40,7 @@ public class StateJump : StateBase
             case Commands.Prepare:
                 {
                     _rb.velocity = new Vector2(_rb.velocity.x, 0.0f);
-                    _rb.AddForce(Vector2.up * 2.0f, ForceMode2D.Impulse);
+                    _rb.AddForce(Vector2.up * 3.0f, ForceMode2D.Impulse);
                     MoveNext();
                 }
                 break;
@@ -48,7 +48,7 @@ public class StateJump : StateBase
             //------------------------------------------------
             case Commands.Casting:
                 {
-                    if (_groundDetector == false)
+                    if (_groundDetector.IsDetected == false)
                         MoveNext();
                 }
                 break;

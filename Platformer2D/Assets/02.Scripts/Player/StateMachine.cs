@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StateMachine : MonoBehaviour
@@ -30,6 +31,8 @@ public class StateMachine : MonoBehaviour
     {
         Current = _states[default(StateTypes)];
         CurrentType = default(StateTypes);
+
+        RegisterShortcuts();
     }
 
     /// <summary>
@@ -62,5 +65,17 @@ public class StateMachine : MonoBehaviour
         _states.Add(StateTypes.Idle, new StateIdle(StateTypes.Idle, this));
         _states.Add(StateTypes.Move, new StateMove(StateTypes.Move, this));
         _states.Add(StateTypes.Jump, new StateJump(StateTypes.Jump, this));
+        _states.Add(StateTypes.Fall, new StateFall(StateTypes.Fall, this));
+    }
+
+
+    
+    //=====================================================================================
+    //                             단축키 등록
+    //=====================================================================================
+    
+    private void RegisterShortcuts()
+    {
+        InputHandler.Instance.RegisterKeyPressAction(KeyCode.LeftAlt, () => ChangeState(StateTypes.Jump));
     }
 }

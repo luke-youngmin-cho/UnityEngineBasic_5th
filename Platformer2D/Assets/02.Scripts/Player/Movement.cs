@@ -51,15 +51,18 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        if (DirectionChangable)
+        {
+            if (_h > _tolerance)
+                Direction = DIRECTION_RIGHT;
+            else if (_h < -_tolerance)
+                Direction = DIRECTION_LEFT;
+        }
+
         if (Movable)
         {
             if (Mathf.Abs(_h) > _tolerance)
             {
-                if (_h > 0.0f)
-                    Direction = DIRECTION_RIGHT;
-                else if (_h < 0.0f)
-                    Direction = DIRECTION_LEFT;
-
                 _machine.ChangeState(StateMachine.StateTypes.Move);
             }
             else
@@ -73,6 +76,7 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.MovePosition(_rb.position + _move * Time.fixedDeltaTime);
+        //_rb.MovePosition(_rb.position + _move * Time.fixedDeltaTime);
+        _rb.position += _move * Time.fixedDeltaTime;
     }
 }
