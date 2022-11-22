@@ -12,6 +12,8 @@ public class StateMachine : MonoBehaviour
         Jump,
         Fall,
         Attack,
+        Dash,
+        Crouch,
         Slide,
         LadderUp,
         LadderDown,
@@ -66,6 +68,9 @@ public class StateMachine : MonoBehaviour
         _states.Add(StateTypes.Move, new StateMove(StateTypes.Move, this));
         _states.Add(StateTypes.Jump, new StateJump(StateTypes.Jump, this));
         _states.Add(StateTypes.Fall, new StateFall(StateTypes.Fall, this));
+        _states.Add(StateTypes.Dash, new StateDash(StateTypes.Dash, this));
+        _states.Add(StateTypes.Slide, new StateSlide(StateTypes.Slide, this));
+        _states.Add(StateTypes.Crouch, new StateCrouch(StateTypes.Crouch, this));
     }
 
 
@@ -77,5 +82,8 @@ public class StateMachine : MonoBehaviour
     private void RegisterShortcuts()
     {
         InputHandler.Instance.RegisterKeyPressAction(KeyCode.LeftAlt, () => ChangeState(StateTypes.Jump));
+        InputHandler.Instance.RegisterKeyPressAction(KeyCode.LeftShift, () => ChangeState(StateTypes.Dash));
+        InputHandler.Instance.RegisterKeyPressAction(KeyCode.X, () => ChangeState(StateTypes.Slide));
+        InputHandler.Instance.RegisterKeyPressAction(KeyCode.DownArrow, () => ChangeState(StateTypes.Crouch));
     }
 }

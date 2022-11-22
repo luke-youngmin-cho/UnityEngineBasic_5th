@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class StateMove : StateBase
 {
-    private GroundDetector _groudDetector;
+    private GroundDetector _groundDetector;
     public StateMove(StateMachine.StateTypes type, StateMachine machine) : base(type, machine)
     {
-        _groudDetector = machine.GetComponent<GroundDetector>();
+        _groundDetector = machine.GetComponent<GroundDetector>();
     }
 
     public override bool CanExecute()
     {
-        return _groudDetector.IsDetected;
+        return _groundDetector.IsDetected;
     }
 
     public override void Execute()
@@ -41,6 +41,12 @@ public class StateMove : StateBase
                 MoveNext();
                 break;
             case Commands.Finish:
+                {
+                    if (_groundDetector.IsDetected == false)
+                    {
+                        next = StateMachine.StateTypes.Fall;
+                    }
+                }
                 break;
             default:
                 break;

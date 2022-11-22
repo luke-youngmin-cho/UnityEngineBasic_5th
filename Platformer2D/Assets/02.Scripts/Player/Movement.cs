@@ -42,6 +42,16 @@ public class Movement : MonoBehaviour
     private Rigidbody2D _rb;
     private StateMachine _machine;
 
+    public void RefreshMove()
+    {
+        _move.x = _h * _speed;
+    }
+
+    public void ResetMove()
+    {
+        _move = Vector2.zero;
+    }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
