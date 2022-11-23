@@ -56,7 +56,9 @@ public class StateCrouch : StateBase
                 break;
             case Commands.OnAction:
                 {
-                    if (Input.GetKey(KeyCode.DownArrow) == false)
+                    if (Input.GetKey(KeyCode.LeftAlt))
+                        next = StateMachine.StateTypes.Jump;
+                    else if (Input.GetKey(KeyCode.DownArrow) == false)
                         next = StateMachine.StateTypes.Idle;
                 }
                 break;

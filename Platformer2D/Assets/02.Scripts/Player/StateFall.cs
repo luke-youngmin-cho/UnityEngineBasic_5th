@@ -7,7 +7,7 @@ public class StateFall : StateBase
     private GroundDetector _groundDetector;
     public StateFall(StateMachine.StateTypes type, StateMachine machine) : base(type, machine)
     {
-        _groundDetector = machine.GetComponent<GroundDetector>();
+        _groundDetector = machine.GetComponentInChildren<GroundDetector>();
     }
 
     public override bool CanExecute()

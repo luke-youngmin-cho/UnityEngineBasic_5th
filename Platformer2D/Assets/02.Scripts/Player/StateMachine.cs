@@ -21,6 +21,7 @@ public class StateMachine : MonoBehaviour
         Die
     }
     public StateTypes CurrentType;
+    public StateTypes PreviousType;
     public StateBase Current;
     private Dictionary<StateTypes, StateBase> _states = new Dictionary<StateTypes, StateBase>();
 
@@ -53,6 +54,7 @@ public class StateMachine : MonoBehaviour
 
         Current.Stop(); // 현재 수행중인 상태 중단
         Current = _states[newStateType]; // 다른 상태로 전환
+        PreviousType = CurrentType; // 이전 상태 기억
         CurrentType = newStateType; // 현재 상태 타입을 전환한 타입으로 갱신
         Current.Execute(); // 전환된 상태 실행
     }
