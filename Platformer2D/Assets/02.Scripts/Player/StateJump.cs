@@ -21,10 +21,12 @@ public class StateJump : StateBase
 
     public override bool CanExecute()
     {
-        return (Machine.CurrentType == StateMachine.StateTypes.Idle ||
+        return ((Machine.CurrentType == StateMachine.StateTypes.Idle ||
                 Machine.CurrentType == StateMachine.StateTypes.Move ||
                 Machine.CurrentType == StateMachine.StateTypes.Crouch) &&
-                _groundDetector.IsDetected;
+                _groundDetector.IsDetected) ||
+                Machine.CurrentType == StateMachine.StateTypes.LadderUp ||
+                Machine.CurrentType == StateMachine.StateTypes.LadderDown;
     }
 
     public override void Execute()

@@ -44,9 +44,9 @@ public class LadderDetector : MonoBehaviour
     private float _upDetectOffset => _subjectHeight * 0.8f;
     private float _downDetectOffset => -_subjectHeight * 0.2f;
     private float _topEscapeOffset => -_subjectHeight * 0.1f;
-    private float _bottomEscapeOffset => -_subjectHeight * 0.9f;
+    private float _bottomEscapeOffset => -_subjectHeight * 0.1f;
     private float _topStartOffset => -_subjectHeight * 0.2f;
-    private float _bottomStartOffset => -_subjectHeight * 0.8f;
+    private float _bottomStartOffset => +_subjectHeight * 0.2f;
 
     public float UpLadderTopY;
     public float UpLadderBottomY;

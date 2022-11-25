@@ -42,21 +42,22 @@ public class StateMachine : MonoBehaviour
     /// 상태를 전환하는 함수
     /// </summary>
     /// <param name="newStateType"> 전환하려는 상태 타입 </param>
-    public void ChangeState(StateTypes newStateType)
+    public bool ChangeState(StateTypes newStateType)
     {
         // 바꾸려는 타입이 현재 수행중인 상태와 같은 타입이면 상태를 전환하지 않는다.
         if (CurrentType == newStateType)
-            return;
+            return false;
 
         // 바꾸려는 상태가 실행 가능하지 않다면 상태를 전환하지 않는다.
         if (_states[newStateType].CanExecute() == false)
-            return;
+            return false;
 
         Current.Stop(); // 현재 수행중인 상태 중단
         Current = _states[newStateType]; // 다른 상태로 전환
         PreviousType = CurrentType; // 이전 상태 기억
         CurrentType = newStateType; // 현재 상태 타입을 전환한 타입으로 갱신
         Current.Execute(); // 전환된 상태 실행
+        return true;
     }
 
     private void Update()
@@ -73,19 +74,28 @@ public class StateMachine : MonoBehaviour
         _states.Add(StateTypes.Dash, new StateDash(StateTypes.Dash, this));
         _states.Add(StateTypes.Slide, new StateSlide(StateTypes.Slide, this));
         _states.Add(StateTypes.Crouch, new StateCrouch(StateTypes.Crouch, this));
+        _states.Add(StateTypes.LadderUp, new StateLadderUp(StateTypes.LadderUp, this));
+        _states.Add(StateTypes.LadderDown, new StateLadderDown(StateTypes.LadderDown, this));
     }
 
 
-    
+
     //=====================================================================================
     //                             단축키 등록
     //=====================================================================================
-    
+
     private void RegisterShortcuts()
     {
         InputHandler.Instance.RegisterKeyPressAction(KeyCode.LeftAlt, () => ChangeState(StateTypes.Jump));
         InputHandler.Instance.RegisterKeyPressAction(KeyCode.LeftShift, () => ChangeState(StateTypes.Dash));
         InputHandler.Instance.RegisterKeyPressAction(KeyCode.X, () => ChangeState(StateTypes.Slide));
-        InputHandler.Instance.RegisterKeyPressAction(KeyCode.DownArrow, () => ChangeState(StateTypes.Crouch));
+        InputHandler.Instance.RegisterKeyPressAction(KeyCode.UpArrow, () => ChangeState(StateTypes.LadderUp));
+        InputHandler.Instance.RegisterKeyPressAction(KeyCode.DownArrow, () =>
+        {
+            bool success = false;
+            success = ChangeState(StateTypes.LadderDown);
+            if (success) return;
+            success = ChangeState(StateTypes.Crouch);
+        });
     }
 }

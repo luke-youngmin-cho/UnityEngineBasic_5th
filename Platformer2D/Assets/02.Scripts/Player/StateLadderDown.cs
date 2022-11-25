@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateLadderUp : StateBase
+public class StateLadderDown : StateBase
 {
     private LadderDetector _ladderDetector;
     private GroundDetector _groundDetector;
     private Rigidbody2D _rb;
     private Movement _movement;
-    public StateLadderUp(StateMachine.StateTypes type, StateMachine machine) : base(type, machine)
+    public StateLadderDown(StateMachine.StateTypes type, StateMachine machine) : base(type, machine)
     {
         _ladderDetector = machine.GetComponentInChildren<LadderDetector>();
         _groundDetector = machine.GetComponentInChildren<GroundDetector>();
@@ -18,11 +18,11 @@ public class StateLadderUp : StateBase
 
     public override bool CanExecute()
     {
-        return _ladderDetector.IsGoUpPossible &&
+        return _ladderDetector.IsGoDownPossible &&
                (Machine.CurrentType == StateMachine.StateTypes.Idle ||
                 Machine.CurrentType == StateMachine.StateTypes.Move ||
-                Machine.CurrentType == StateMachine.StateTypes.Jump ||
-                Machine.CurrentType == StateMachine.StateTypes.Fall);
+                Machine.CurrentType == StateMachine.StateTypes.Slide ||
+                Machine.CurrentType == StateMachine.StateTypes.Dash);
     }
 
     public override void Execute()
@@ -54,16 +54,7 @@ public class StateLadderUp : StateBase
                     _rb.velocity = Vector2.zero;
                     _movement.ResetMove();
 
-                    // 아예 밑에서 올라오려할때
-                    if (_rb.position.y <= _ladderDetector.UpBottomStartPosY)
-                    {
-                        _rb.position = new Vector2(_ladderDetector.UpPosX, _ladderDetector.UpBottomStartPosY);
-                    }
-                    // 중간에 점프/떨어짐 등으로 공중에 떠있는 상태에서 사다리에 매달릴때
-                    else
-                    {
-                        _rb.position = new Vector2(_ladderDetector.UpPosX, _rb.position.y);
-                    }
+                    _rb.position = new Vector2(_ladderDetector.DownPosX, _ladderDetector.DownTopStartPosY);
 
                     Current = Commands.OnAction;
                 }
@@ -78,14 +69,14 @@ public class StateLadderUp : StateBase
                     _rb.position += Vector2.up * v * Time.deltaTime;
 
                     // 탈출 조건
-                    if (_rb.position.y > _ladderDetector.UpTopEscapePosY)
+                    if (_rb.position.y > _ladderDetector.DownTopEscapePosY)
                     {
-                        _rb.position = new Vector2(_ladderDetector.UpPosX, _ladderDetector.UpLadderTopY);
+                        _rb.position = new Vector2(_ladderDetector.DownPosX, _ladderDetector.DownLadderTopY);
                         MoveNext();
                     }
-                    else if (_rb.position.y < _ladderDetector.UpBottomEscapePosY)
+                    else if (_rb.position.y < _ladderDetector.DownBottomEscapePosY)
                     {
-                        _rb.position = new Vector2(_ladderDetector.UpPosX, _ladderDetector.UpLadderBottomY);
+                        _rb.position = new Vector2(_ladderDetector.DownPosX, _ladderDetector.DownLadderBottomY);
                         MoveNext();
                     }
                     else if (_groundDetector.IsDetected)
