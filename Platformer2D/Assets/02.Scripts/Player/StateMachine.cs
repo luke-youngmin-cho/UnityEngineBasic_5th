@@ -17,6 +17,7 @@ public class StateMachine : MonoBehaviour
         Slide,
         LadderUp,
         LadderDown,
+        Edge,
         Hurt,
         Die
     }
@@ -76,6 +77,7 @@ public class StateMachine : MonoBehaviour
         _states.Add(StateTypes.Crouch, new StateCrouch(StateTypes.Crouch, this));
         _states.Add(StateTypes.LadderUp, new StateLadderUp(StateTypes.LadderUp, this));
         _states.Add(StateTypes.LadderDown, new StateLadderDown(StateTypes.LadderDown, this));
+        _states.Add(StateTypes.Edge, new StateEdge(StateTypes.Edge, this));
     }
 
 
@@ -89,7 +91,13 @@ public class StateMachine : MonoBehaviour
         InputHandler.Instance.RegisterKeyPressAction(KeyCode.LeftAlt, () => ChangeState(StateTypes.Jump));
         InputHandler.Instance.RegisterKeyPressAction(KeyCode.LeftShift, () => ChangeState(StateTypes.Dash));
         InputHandler.Instance.RegisterKeyPressAction(KeyCode.X, () => ChangeState(StateTypes.Slide));
-        InputHandler.Instance.RegisterKeyPressAction(KeyCode.UpArrow, () => ChangeState(StateTypes.LadderUp));
+        InputHandler.Instance.RegisterKeyPressAction(KeyCode.UpArrow, () =>
+        {
+            bool success = false;
+            success = ChangeState(StateTypes.Edge);
+            if (success) return;
+            success = ChangeState(StateTypes.LadderUp);
+        });
         InputHandler.Instance.RegisterKeyPressAction(KeyCode.DownArrow, () =>
         {
             bool success = false;
