@@ -76,13 +76,21 @@ public class EnemyController : MonoBehaviour
     // animation
     private Animator _animator;
 
-    
+    // Enemy
+    private Enemy _enemy;
 
     private void Awake()
     {
         Rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<CapsuleCollider2D>();
-        _animator = GetComponent<Animator>();        
+        _animator = GetComponent<Animator>();
+        _enemy = GetComponent<Enemy>();
+    }
+
+    private void Start()
+    {
+        _enemy.OnHpMin += () => ChangeState(States.Die);
+        _enemy.OnHpDecrease += () => ChangeState(States.Hurt);
     }
 
     private void Update()

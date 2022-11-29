@@ -78,6 +78,7 @@ public class StateMachine : MonoBehaviour
         _states.Add(StateTypes.LadderUp, new StateLadderUp(StateTypes.LadderUp, this));
         _states.Add(StateTypes.LadderDown, new StateLadderDown(StateTypes.LadderDown, this));
         _states.Add(StateTypes.Edge, new StateEdge(StateTypes.Edge, this));
+        _states.Add(StateTypes.Attack, new StateAttack(StateTypes.Attack, this));
     }
 
 
@@ -105,5 +106,6 @@ public class StateMachine : MonoBehaviour
             if (success) return;
             success = ChangeState(StateTypes.Crouch);
         });
+        InputHandler.Instance.RegisterKeyPressAction(KeyCode.A, () => ChangeState(StateTypes.Attack));
     }
 }
