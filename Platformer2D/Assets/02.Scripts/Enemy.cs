@@ -37,8 +37,23 @@ public class Enemy : MonoBehaviour
 
     public int ATK;
 
+    [SerializeField] private LayerMask _targetLayer;
+
     private void Awake()
     {
         HP = _hpMax;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (1 << collision.gameObject.layer == _targetLayer)
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (player.Invincible == false)
+            {
+                player.Hurt(ATK, false);
+                player.Knockback();
+            }
+        }
     }
 }

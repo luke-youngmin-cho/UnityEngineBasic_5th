@@ -13,9 +13,9 @@ public class Projectile : MonoBehaviour
         transform.position += Dir * _speed * Time.fixedDeltaTime;
     }
 
-    protected virtual void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (1<<other.gameObject.layer == _mapBoundLayer)
+        if (1 << collision.gameObject.layer == _mapBoundLayer)
             Destroy(gameObject);
     }
 }

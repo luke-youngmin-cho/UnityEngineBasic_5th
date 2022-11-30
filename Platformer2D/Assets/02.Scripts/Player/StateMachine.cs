@@ -25,9 +25,11 @@ public class StateMachine : MonoBehaviour
     public StateTypes PreviousType;
     public StateBase Current;
     private Dictionary<StateTypes, StateBase> _states = new Dictionary<StateTypes, StateBase>();
+    private Player _player;
 
     private void Awake()
     {
+        _player = GetComponent<Player>();
         InitStates();
     }
 
@@ -36,6 +38,7 @@ public class StateMachine : MonoBehaviour
         Current = _states[default(StateTypes)];
         CurrentType = default(StateTypes);
 
+        RegisterCallbacks();
         RegisterShortcuts();
     }
 
@@ -79,6 +82,8 @@ public class StateMachine : MonoBehaviour
         _states.Add(StateTypes.LadderDown, new StateLadderDown(StateTypes.LadderDown, this));
         _states.Add(StateTypes.Edge, new StateEdge(StateTypes.Edge, this));
         _states.Add(StateTypes.Attack, new StateAttack(StateTypes.Attack, this));
+        _states.Add(StateTypes.Hurt, new StateHurt(StateTypes.Hurt, this));
+        _states.Add(StateTypes.Die, new StateDie(StateTypes.Die, this));
     }
 
 
@@ -86,6 +91,12 @@ public class StateMachine : MonoBehaviour
     //=====================================================================================
     //                             단축키 등록
     //=====================================================================================
+
+    private void RegisterCallbacks()
+    {
+        _player.OnHpDecrease += () => ChangeState(StateTypes.Hurt);
+        _player.OnHpMin += () => ChangeState(StateTypes.Die);
+    }
 
     private void RegisterShortcuts()
     {

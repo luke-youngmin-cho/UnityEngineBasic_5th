@@ -1,10 +1,11 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public bool Invincible;
     private int _hp;
     public int HP
     {
@@ -36,9 +37,36 @@ public class Player : MonoBehaviour
     [SerializeField] private Slider _hpSlider;
 
     public int ATK;
+    private Rigidbody2D _rb;
+    private Movement _movement;
+    [SerializeField] private Vector2 _knockBackForce = new Vector2(0.5f, 0.5f);
+
+    public void Hurt(int damage, bool isCritical)
+    {
+        if (Invincible)
+            return;
+
+        HP -= damage;
+        Invincible = true;
+        StartCoroutine(E_SetInvincibleAfterSeconds(false, 1.0f));   
+    }
+
+    public void Knockback()
+    {
+        _rb.velocity = Vector2.zero;
+        _rb.AddForce(new Vector2(-_knockBackForce.x * _movement.Direction, _knockBackForce.y), ForceMode2D.Impulse);
+    }
 
     private void Awake()
     {
+        _movement = GetComponent<Movement>();
+        _rb = GetComponent<Rigidbody2D>();
         HP = _hpMax;
+    }
+
+    IEnumerator E_SetInvincibleAfterSeconds(bool invincible, float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        Invincible = invincible;
     }
 }

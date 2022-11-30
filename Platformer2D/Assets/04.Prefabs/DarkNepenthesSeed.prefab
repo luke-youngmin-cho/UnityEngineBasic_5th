@@ -124,11 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566966ba44ace304a86d6bcfd572588e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Dir: {x: 0, y: 0, z: 0}
   _speed: 2
   _mapBoundLayer:
     serializedVersion: 2
     m_Bits: 1073741824
-  _damage: 10
+  _damage: 30
   _targetLayer:
     serializedVersion: 2
     m_Bits: 1024

@@ -18,7 +18,12 @@ public class NepenthesController : EnemyController
 
         if (hit.collider != null)
         {
-            Debug.Log("Casted target!");
+            Player player = hit.collider.GetComponent<Player>();
+            if (player.Invincible == false)
+            {
+                player.Hurt(Enemy.ATK, false);
+                player.Knockback();
+            }
         }
     }
 

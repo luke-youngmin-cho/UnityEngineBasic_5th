@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class DarkNepenthesSeed : Projectile
 {
-    [SerializeField] private int _damage;
+    [SerializeField] private int _damage = 30;
     [SerializeField] private LayerMask _targetLayer;
 
-    protected override void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter(other);
-        if (1<<other.gameObject.layer == _targetLayer)
+        base.OnTriggerEnter2D(collision);
+        if (1 << collision.gameObject.layer == _targetLayer)
         {
-            // todo -> damage player
-            Destroy(gameObject);
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (player.Invincible == false)
+            {
+                player.Hurt(_damage, false);
+                player.Knockback();
+            }
         }
     }
 }
