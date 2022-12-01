@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public GameObject Owner;
     public Vector3 Dir;
     [SerializeField] private float _speed;
     [SerializeField] private LayerMask _mapBoundLayer;

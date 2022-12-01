@@ -39,6 +39,13 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private LayerMask _targetLayer;
 
+    public void Hurt(GameObject hitter, int damage, bool isCritical)
+    {
+        HP -= damage;
+        DamagePopUp.Create(1 << hitter.layer, transform.position + Vector3.up * 0.25f, damage);
+    }
+
+
     private void Awake()
     {
         HP = _hpMax;
@@ -51,7 +58,7 @@ public class Enemy : MonoBehaviour
             Player player = collision.gameObject.GetComponent<Player>();
             if (player.Invincible == false)
             {
-                player.Hurt(ATK, false);
+                player.Hurt(gameObject, ATK, false);
                 player.Knockback();
             }
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class StateAttack : StateBase
@@ -70,7 +71,7 @@ public class StateAttack : StateBase
                                                                           _targetLayer);
                                     if (hit.collider)
                                     {
-                                        hit.collider.GetComponent<Enemy>().HP -= _player.ATK;
+                                        hit.collider.GetComponent<Enemy>().Hurt(Machine.gameObject, _player.ATK, false);
                                     }
                                 }
                                 break;
@@ -102,7 +103,7 @@ public class StateAttack : StateBase
 
                                     foreach (Enemy enemy in enemies)
                                     {
-                                        enemy.HP -= _player.ATK;
+                                        enemy.Hurt(Machine.gameObject, _player.ATK, false);
                                     }
                                 }
                                 break;

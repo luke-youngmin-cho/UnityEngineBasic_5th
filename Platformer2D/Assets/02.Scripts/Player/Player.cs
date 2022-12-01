@@ -41,12 +41,13 @@ public class Player : MonoBehaviour
     private Movement _movement;
     [SerializeField] private Vector2 _knockBackForce = new Vector2(0.5f, 0.5f);
 
-    public void Hurt(int damage, bool isCritical)
+    public void Hurt(GameObject hitter, int damage, bool isCritical)
     {
         if (Invincible)
             return;
 
         HP -= damage;
+        DamagePopUp.Create(1 << hitter.layer, transform.position + Vector3.up * 0.25f, damage);
         Invincible = true;
         StartCoroutine(E_SetInvincibleAfterSeconds(false, 1.0f));   
     }

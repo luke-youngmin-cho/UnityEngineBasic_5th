@@ -9,10 +9,12 @@ public class DarkNepenthesController : EnemyController
     protected override void AttackBehavior()
     {
         base.AttackBehavior();
-        Instantiate(_seedPrefab, 
-                    Rb.position + new Vector2(_seedSpawnOffset.x * Direction, _seedSpawnOffset.y),
-                    Quaternion.identity)
-            .GetComponent<Projectile>().Dir = Vector3.right * Direction;
+        Projectile projectile = Instantiate(_seedPrefab,
+                                            Rb.position + new Vector2(_seedSpawnOffset.x * Direction, _seedSpawnOffset.y),
+                                            Quaternion.identity).GetComponent<Projectile>();
+
+        projectile.Owner = gameObject;
+        projectile.Dir = Vector3.right * Direction;
     }
 
     private void OnDrawGizmosSelected()

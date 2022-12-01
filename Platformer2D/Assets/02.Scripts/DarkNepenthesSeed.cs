@@ -15,7 +15,7 @@ public class DarkNepenthesSeed : Projectile
             Player player = collision.gameObject.GetComponent<Player>();
             if (player.Invincible == false)
             {
-                player.Hurt(_damage, false);
+                player.Hurt(Owner, _damage, false);
                 player.Knockback();
             }
         }

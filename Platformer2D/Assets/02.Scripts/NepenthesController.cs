@@ -21,7 +21,7 @@ public class NepenthesController : EnemyController
             Player player = hit.collider.GetComponent<Player>();
             if (player.Invincible == false)
             {
-                player.Hurt(Enemy.ATK, false);
+                player.Hurt(gameObject, Enemy.ATK, false);
                 player.Knockback();
             }
         }
