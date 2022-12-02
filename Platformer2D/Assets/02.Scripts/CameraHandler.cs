@@ -5,12 +5,29 @@ using UnityEngine;
 
 public class CameraHandler : MonoBehaviour
 {
+    public static CameraHandler Instance;
+
     [SerializeField] private Vector2 _offset;
     [Range(1.0f, 10.0f)]
     [SerializeField] private float _smoothness;
     private Camera _camera;
 
     [SerializeField] private BoxCollider2D _boundShape;
+    public BoxCollider2D BoundShape
+    {
+        get
+        {
+            return _boundShape;
+        }
+        set
+        {
+            _boundShape = value;
+            _boundShapeXMin = value.transform.position.x + value.offset.x - value.size.x / 2.0f;
+            _boundShapeXMax = value.transform.position.x + value.offset.x + value.size.x / 2.0f;
+            _boundShapeYMin = value.transform.position.y + value.offset.y - value.size.y / 2.0f;
+            _boundShapeYMax = value.transform.position.y + value.offset.y + value.size.y / 2.0f;            
+        }
+    }
     private float _boundShapeXMin;
     private float _boundShapeXMax;
     private float _boundShapeYMin;
@@ -21,11 +38,9 @@ public class CameraHandler : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         _camera = Camera.main;
-        _boundShapeXMin = _boundShape.transform.position.x + _boundShape.offset.x - _boundShape.size.x / 2.0f;
-        _boundShapeXMax = _boundShape.transform.position.x + _boundShape.offset.x + _boundShape.size.x / 2.0f;
-        _boundShapeYMin = _boundShape.transform.position.y + _boundShape.offset.y - _boundShape.size.y / 2.0f;
-        _boundShapeYMax = _boundShape.transform.position.y + _boundShape.offset.y + _boundShape.size.y / 2.0f;
+        BoundShape = _boundShape;
     }
 
     private void LateUpdate()
@@ -71,6 +86,6 @@ public class CameraHandler : MonoBehaviour
         Gizmos.DrawWireCube(center, rightTop - leftBottom);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(_boundShape.transform.position + (Vector3)_boundShape.offset, _boundShape.size);
+        Gizmos.DrawWireCube(BoundShape.transform.position + (Vector3)BoundShape.offset, BoundShape.size);
     }
 }

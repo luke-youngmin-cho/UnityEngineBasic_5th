@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,6 +64,11 @@ public class Player : MonoBehaviour
         _movement = GetComponent<Movement>();
         _rb = GetComponent<Rigidbody2D>();
         HP = _hpMax;
+    }
+
+    private void OnDisable()
+    {
+        Invincible = false;
     }
 
     IEnumerator E_SetInvincibleAfterSeconds(bool invincible, float sec)
