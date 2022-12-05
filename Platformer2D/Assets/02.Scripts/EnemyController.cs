@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour
             } 
         }
     }
-    [SerializeField] private bool _moveEnable = true;
+    public bool MoveEnable = true;
     [SerializeField] private bool _movable = false;
     [SerializeField] private float _moveSpeed = 1.0f;
     protected Rigidbody2D Rb;
@@ -102,7 +102,7 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_moveEnable && _movable)
+        if (MoveEnable && _movable)
             Rb.MovePosition(Rb.position + Direction * Vector2.right * _moveSpeed * Time.fixedDeltaTime);
     }
 
