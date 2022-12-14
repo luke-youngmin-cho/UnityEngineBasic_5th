@@ -12,21 +12,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a459600afaf5f614cb4826adb77677f3, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  Level: 0
-  LifeInit: 0
-  MoneyInit: 0
+  Level: 1
+  LifeInit: 20
+  MoneyInit: 500
   StageDatas:
-  - Stage: 0
+  - Stage: 1
     SpawnDatas:
-    - Prefab: {fileID: 0}
-      Num: 0
-      Term: 0
-      StartDelay: 0
+    - Prefab: {fileID: 7367956765095634323, guid: 554fea495bd6a674994c7222f7c1ca73, type: 3}
+      Num: 5
+      Term: 0.5
+      StartDelay: 0.5
       StartPointIndex: 0
       EndPointIndex: 0
-    - Prefab: {fileID: 0}
-      Num: 0
-      Term: 0
-      StartDelay: 0
+    - Prefab: {fileID: 158692885507274285, guid: 9863ffe910fb7984a9d49ea475e97d7f, type: 3}
+      Num: 2
+      Term: 1
+      StartDelay: 1
+      StartPointIndex: 1
+      EndPointIndex: 1
+  - Stage: 2
+    SpawnDatas:
+    - Prefab: {fileID: 7367956765095634323, guid: 554fea495bd6a674994c7222f7c1ca73, type: 3}
+      Num: 8
+      Term: 0.5
+      StartDelay: 0.5
       StartPointIndex: 0
+      EndPointIndex: 0
+    - Prefab: {fileID: 158692885507274285, guid: 9863ffe910fb7984a9d49ea475e97d7f, type: 3}
+      Num: 4
+      Term: 1
+      StartDelay: 1
+      StartPointIndex: 1
+      EndPointIndex: 1
+  - Stage: 3
+    SpawnDatas:
+    - Prefab: {fileID: 158692885507274285, guid: 9863ffe910fb7984a9d49ea475e97d7f, type: 3}
+      Num: 12
+      Term: 0.5
+      StartDelay: 1
+      StartPointIndex: 1
       EndPointIndex: 0
