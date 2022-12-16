@@ -63,6 +63,26 @@ public class Pathfinder : MonoBehaviour
     private static float _width => _rightTop.position.x - _leftBottom.position.x;
     private static float _height => _rightTop.position.z - _leftBottom.position.z;
 
+    //===========================================================================
+    //                            Public Methods
+    //===========================================================================
+
+    public static void SetUp()
+    {
+        Transform pathPointsParent = GameObject.Find("Paths").transform;
+        List<Transform> pathPoints = new List<Transform>();
+        for (int i = 0; i < pathPointsParent.childCount; i++)
+            pathPoints.Add(pathPointsParent.GetChild(i));
+
+        Transform obstaclesParent = GameObject.Find("Nodes").transform;
+        List<Transform> obstacles = new List<Transform>();
+        for (int i = 0; i < obstaclesParent.childCount; i++)
+            obstacles.Add(obstaclesParent.GetChild(i));
+
+        SetUp(pathPoints, obstacles);
+    }
+
+
     /// <summary>
     /// 옵션에 따라서 시작지점부터 끝지점까지 최적화된 경로를 연산하고 반환하는 함수
     /// </summary>
@@ -99,6 +119,12 @@ public class Pathfinder : MonoBehaviour
 
         return success;
     }
+
+
+    //===========================================================================
+    //                            Private Methods
+    //===========================================================================
+    
 
     /// <summary>
     /// 맵 데이터 세팅
@@ -141,6 +167,8 @@ public class Pathfinder : MonoBehaviour
                 Type = NodeType.Obstacle
             };
         }
+
+        Debug.Log($"Map setting finished. Map Size : {_map.GetLength(1)},{_map.GetLength(0)}");
     }
 
 
@@ -169,6 +197,7 @@ public class Pathfinder : MonoBehaviour
 
     private static bool DFS(Coord start, Coord end)
     {
+        _visited = new bool[_map.GetLength(0), _map.GetLength(1)];
         _path_DFS = new List<Transform>();
         bool success = DFSLoop(start, end);
         if (success)
