@@ -56,6 +56,8 @@ public class Pathfinder : MonoBehaviour
 
     private static List<Transform> _path;
     private static List<Transform> _path_DFS;
+    private static List<Transform> _path_BFS;
+    private static List<List<Transform>> _paths_BFS;
 
     private static Transform _leftBottom;
     private static Transform _rightTop;
@@ -112,6 +114,11 @@ public class Pathfinder : MonoBehaviour
                 }
                 break;
             case FindingOption.BFS:
+                {
+                    success = BFS(GetCoord(start), GetCoord(end));
+                    if (success)
+                        optimizedPath = _path_BFS;
+                }
                 break;
             default:
                 break;
@@ -250,6 +257,79 @@ public class Pathfinder : MonoBehaviour
         }
 
         return success;
+    }
+
+    private static bool BFS(Coord start, Coord end)
+    {
+        bool success = false;
+        _paths_BFS = new List<List<Transform>>();
+        _visited = new bool[_map.GetLength(0), _map.GetLength(1)];
+        List<KeyValuePair<Coord, Coord>> pairs = new List<KeyValuePair<Coord, Coord>>();
+        Queue<Coord> queue = new Queue<Coord>();
+        queue.Enqueue(start);
+        _visited[start.Y, start.X] = true;
+
+        while (queue.Count > 0)
+        {
+            Coord parent = queue.Dequeue();
+
+            for (int i = 0; i < _direction.GetLength(1); i++)
+            {
+                Coord child = new Coord(parent.Y + _direction[0, i], parent.X + _direction[1, i]);
+
+                // 탐색위치가 맵을 벗어나는지 
+                if ((child.Y < 0 || child.Y >= _map.GetLength(0)) ||
+                    (child.X < 0 || child.X >= _map.GetLength(1)))
+                    continue;
+
+                // 탐색 위치가 장애물인지
+                if (_map[child.Y, child.X].Type == NodeType.Obstacle)
+                    continue;
+
+                // 방문 했는지
+                if (_visited[child.Y, child.X])
+                    continue;
+
+                pairs.Add(new KeyValuePair<Coord, Coord>(parent, child));
+                _visited[child.Y, child.X] = true;
+
+                // 도착 여부
+                if (child == end)
+                {
+                    success = true;      
+                    _paths_BFS.Add(BacktrackPath(pairs));
+                }
+                else
+                {
+                    queue.Enqueue(child);
+                }
+            }
+        }
+
+        if (success)
+            _path_BFS = _paths_BFS.OrderBy(x => x.Count).First();
+
+        return success;
+    }
+
+    private static List<Transform> BacktrackPath(List<KeyValuePair<Coord, Coord>> pairs)
+    {
+        List<Transform> path = new List<Transform>();
+        Coord coord = pairs.Last().Value; // 젤 마지막 노드
+        path.Add(GetPoint(coord));
+
+        int index = pairs.Count - 1;
+        while (index > 0 &&
+               pairs[index].Key != pairs.First().Key)
+        {
+            path.Add(GetPoint(pairs[index].Key));
+            index = pairs.FindLastIndex(pair => pair.Value == pairs[index].Key);
+        }
+
+        path.Add(GetPoint(pairs.First().Key)); // 젤 처음 노드
+        path.Reverse();
+
+        return path;
     }
 
     private static Transform GetPoint(Coord coord) => _map[coord.Y, coord.X].Point;
