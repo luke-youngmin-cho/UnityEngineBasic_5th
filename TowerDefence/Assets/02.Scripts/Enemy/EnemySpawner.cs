@@ -59,6 +59,12 @@ public class EnemySpawner : MonoBehaviour
         _delayTimersList.Add(tmpDelayTimers);
     }
 
+    private void Start()
+    {
+        RegisterToObjectPool();
+        ObjectPool.Instance.InstantiateAllElements();
+    }
+
     private void Update()
     {
         Spawning();
@@ -86,14 +92,16 @@ public class EnemySpawner : MonoBehaviour
                         // 소환 주기 체크
                         if (_termTimersList[i][j] <= 0)
                         {
-                            GameObject go = Instantiate(_stageDatas[i].SpawnDatas[j].Prefab,
-                                                        Paths.Instance.StartPoints[_stageDatas[i].SpawnDatas[j].StartPointIndex].position
-                                                        + _stageDatas[i].SpawnDatas[j].Prefab.transform.position
-                                                        + _offset,
-                                                        Quaternion.identity);
+                            Enemy enemy = ObjectPool.Instance.Spawn(_stageDatas[i].SpawnDatas[j].Prefab.name,
+                                                                    Paths.Instance.StartPoints[_stageDatas[i].SpawnDatas[j].StartPointIndex].position
+                                                                    + _stageDatas[i].SpawnDatas[j].Prefab.transform.position
+                                                                    + _offset,
+                                                                    Quaternion.identity).GetComponent<Enemy>();
 
-                            go.GetComponent<Enemy>().SetPath(Paths.Instance.StartPoints[_stageDatas[i].SpawnDatas[j].StartPointIndex],
-                                                             Paths.Instance.EndPoints[_stageDatas[i].SpawnDatas[j].EndPointIndex]);
+                            enemy.OnHpMin += () => ObjectPool.Instance.Return(enemy.gameObject);
+                            enemy.SetPath(Paths.Instance.StartPoints[_stageDatas[i].SpawnDatas[j].StartPointIndex],
+                                          Paths.Instance.EndPoints[_stageDatas[i].SpawnDatas[j].EndPointIndex]);
+
 
                             _countersList[i][j]--;
                             _termTimersList[i][j] = _stageDatas[i].SpawnDatas[j].Term;
@@ -116,6 +124,19 @@ public class EnemySpawner : MonoBehaviour
                 _countersList.RemoveAt(i);
                 _termTimersList.RemoveAt(i);
                 _delayTimersList.RemoveAt(i);
+            }
+        }
+    }
+
+    private void RegisterToObjectPool()
+    {
+        foreach (StageData stageData in Data.StageDatas)
+        {
+            foreach (SpawnData spawnData in stageData.SpawnDatas)
+            {
+                ObjectPool.Instance.AddElement(new ObjectPool.Element(spawnData.Prefab.name,
+                                                                      spawnData.Prefab,
+                                                                      spawnData.Num));
             }
         }
     }

@@ -1,10 +1,36 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(Pathfinder))]
 public class Enemy : MonoBehaviour
 {
+    private float _hp;
+    public float Hp
+    {
+        get
+        {
+            return _hp;
+        }
+        set
+        {
+            if (value < 0)
+                value = 0;
+
+            if (_hp != value)
+            {
+                _hp = value;
+                OnHpChanged?.Invoke(_hp);
+
+                if (_hp <= 0)
+                    OnHpMin?.Invoke();
+            }
+        }
+    }
+    public float HpMax = 100;
+    public event Action OnHpMin;
+    public event Action<float> OnHpChanged;
+
     public float Speed;
 
     private Pathfinder _pathfinder;
@@ -31,6 +57,7 @@ public class Enemy : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _pathfinder = GetComponent<Pathfinder>();
+        Hp = HpMax;
     }
 
     private void FixedUpdate()
@@ -72,6 +99,6 @@ public class Enemy : MonoBehaviour
     private void OnReachedToEnd()
     {
         // todo -> 플레이어 체력 차감
-        Destroy(gameObject);
+        Hp = 0;
     }
 }
