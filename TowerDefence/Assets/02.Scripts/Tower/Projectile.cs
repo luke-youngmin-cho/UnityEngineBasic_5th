@@ -24,6 +24,9 @@ public class Projectile : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Target.gameObject.activeSelf == false)
+            ObjectPool.Instance.Return(gameObject);
+
         Move();
     }
 
