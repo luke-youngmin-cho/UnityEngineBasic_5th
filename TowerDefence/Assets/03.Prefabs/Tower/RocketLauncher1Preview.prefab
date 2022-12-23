@@ -41,9 +41,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7899851733817974217}
-  - component: {fileID: 1110918098048388005}
   m_Layer: 20
-  m_Name: TowerRocketLauncher1
+  m_Name: RocketLauncher1Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,29 +65,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1110918098048388005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7648695515706964813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea67e5698b545349a46d5971a9ea23a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Info: {fileID: 11400000, guid: d3c443851f4983e4e8954d0d4d08b4a8, type: 2}
-  _rotatePoint: {fileID: 5615374305552875472}
-  _detectRange: 3
-  TargetLayer:
-    serializedVersion: 2
-    m_Bits: 32768
-  Damage: 50
-  FirePoints:
-  - {fileID: 7505165595538504576}
-  _reloadTime: 0.5
-  _firePointBlinkTime: 0.2
 --- !u!1 &8895764723239808339
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +217,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 188f9a8488e154edf8adf142f5696547, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9a220034c09e4e64682c4b4a5bec250b, type: 2}
+      objectReference: {fileID: 2100000, guid: a1402d23b5f7d804cb130015c3c7da9d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 188f9a8488e154edf8adf142f5696547, type: 3}
 --- !u!4 &1416539383794754385 stripped
@@ -307,7 +283,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 67a055578b26444708b7df8956cd1336, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9a220034c09e4e64682c4b4a5bec250b, type: 2}
+      objectReference: {fileID: 2100000, guid: a1402d23b5f7d804cb130015c3c7da9d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67a055578b26444708b7df8956cd1336, type: 3}
 --- !u!4 &5615374305552875472 stripped

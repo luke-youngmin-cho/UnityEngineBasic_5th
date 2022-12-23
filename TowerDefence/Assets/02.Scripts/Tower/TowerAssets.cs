@@ -32,7 +32,7 @@ public class TowerAssets : MonoBehaviour
 
     public bool TryGetPreivewTower(TowerInfo info, out GameObject previewTower)
     {
-        previewTower = _previewTowers.Find(t => t.name == info.name + "Preivew");
+        previewTower = _previewTowers.Find(t => t.name == info.name + "Preview");
         return previewTower;
     }
 }

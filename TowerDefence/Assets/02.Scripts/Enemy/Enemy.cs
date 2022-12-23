@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour
 
     private void OnReachedToEnd()
     {
-        // todo -> 플레이어 체력 차감
+        Player.Instance.Life -= 1;
         Hp = 0;
     }
 }
