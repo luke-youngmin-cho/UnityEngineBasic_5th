@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7899851733817974217}
   - component: {fileID: 4775608052335145673}
+  - component: {fileID: 7028857929452819782}
   m_Layer: 20
   m_Name: MachineGun1
   m_TagString: Untagged
@@ -89,6 +90,19 @@ MonoBehaviour:
   - {fileID: 7505165595538504576}
   _reloadTime: 0.1
   _firePointBlinkTime: 0.2
+--- !u!65 &7028857929452819782
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7648695515706964813}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &8895764723239808339
 GameObject:
   m_ObjectHideFlags: 0

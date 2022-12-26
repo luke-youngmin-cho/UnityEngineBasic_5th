@@ -26,6 +26,11 @@ public abstract class Tower : MonoBehaviour
         }
     }
 
+    private void OnMouseDown()
+    {
+        TowerUI.Instance.SetUp(this);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

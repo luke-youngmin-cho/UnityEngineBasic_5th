@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class TowerHandler : MonoBehaviour
 {
-    public static TowerHandler instance;
+    public static TowerHandler Instance;
 
+    public bool IsActivated;
     [SerializeField] private MeshFilter _meshFilterBase;
     [SerializeField] private MeshRenderer _meshRendererBase;
     [SerializeField] private MeshFilter _meshFilterTurret;
@@ -14,7 +15,7 @@ public class TowerHandler : MonoBehaviour
     private Ray _ray;
     private RaycastHit _hit;
     [SerializeField] private LayerMask _nodeLayer;
-    private bool _isActivated;
+
     public void Handle(TowerInfo info)
     {
         if (TowerAssets.Instance.TryGetPreivewTower(info, out GameObject previewTowerPrefab))
@@ -26,7 +27,7 @@ public class TowerHandler : MonoBehaviour
             _meshFilterTurret.mesh = previewTowerPrefab.transform.GetChild(1).GetComponent<MeshFilter>().sharedMesh;
             _meshRendererTurret.material = previewTowerPrefab.transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial;
             _meshFilterTurret.transform.localPosition = previewTowerPrefab.transform.GetChild(1).localPosition;
-            _isActivated = true;
+            IsActivated = true;
         }
         else
         {
@@ -41,12 +42,17 @@ public class TowerHandler : MonoBehaviour
         _meshRendererBase.material = null;
         _meshFilterTurret.mesh = null;
         _meshRendererTurret.material = null;
-        _isActivated = false;
+        IsActivated = false;
+    }
+
+    private void Awake()
+    {
+        Instance = this;
     }
 
     private void Update()
     {
-        if (_isActivated == false)
+        if (IsActivated == false)
             return;
 
         _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -61,7 +67,8 @@ public class TowerHandler : MonoBehaviour
             transform.position = new Vector3(5000.0f, 5000.0f, 5000.0f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) ||
+            Input.GetMouseButtonDown(1))
             Cancel();
 
         if (Input.GetMouseButtonUp(0))
