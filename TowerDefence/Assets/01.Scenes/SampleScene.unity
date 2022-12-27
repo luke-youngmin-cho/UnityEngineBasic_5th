@@ -3248,6 +3248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 24de3d18c9de867478638c52573a1705, type: 2}
   _offset: {x: 0, y: 0.25, z: 0}
+  _skipButtonUIPrefab: {fileID: 2141669031108656975, guid: dc52252d91f36cd4bad0af3bb3a704cd, type: 3}
 --- !u!4 &202952319
 Transform:
   m_ObjectHideFlags: 0

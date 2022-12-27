@@ -16,6 +16,8 @@ public class EnemySpawner : MonoBehaviour
 
     private int _currentStage; // 가장 최근 소환시작한 스테이지
     [SerializeField] private Vector3 _offset;
+    [SerializeField] private SkipButtonUI _skipButtonUIPrefab;
+    private List<SkipButtonUI> _skipButtonUIList = new List<SkipButtonUI>();
 
     /// <summary>
     /// 다음 스테이지를 시작하는 함수
@@ -63,6 +65,7 @@ public class EnemySpawner : MonoBehaviour
     {
         RegisterToObjectPool();
         ObjectPool.Instance.InstantiateAllElements();
+        CreateSkipButtonUIs();
     }
 
     private void Update()
@@ -124,7 +127,51 @@ public class EnemySpawner : MonoBehaviour
                 _countersList.RemoveAt(i);
                 _termTimersList.RemoveAt(i);
                 _delayTimersList.RemoveAt(i);
+
+                if (_currentStage < Data.StageDatas.Count)
+                    ActiveSkipButtonUIs();
             }
+        }
+    }
+
+    private void CreateSkipButtonUIs()
+    {
+        SkipButtonUI skipButtonUI;
+        foreach (Transform startPoint in Paths.Instance.StartPoints)
+        {
+            skipButtonUI = Instantiate(_skipButtonUIPrefab,
+                                       startPoint.position + Vector3.up * 1.5f,
+                                       _skipButtonUIPrefab.transform.rotation);
+            skipButtonUI.AddListener(() =>
+            {
+                StartNext();
+                DeactiveAllSkipButtonUIs();
+            });
+            _skipButtonUIList.Add(skipButtonUI);
+        }
+    }
+
+    private void ActiveSkipButtonUIs()
+    {
+        HashSet<int> spawnPointIndexSet = new HashSet<int>();
+
+        foreach (var spawnData in Data.StageDatas[_currentStage].SpawnDatas)
+        {
+            if (spawnPointIndexSet.Contains(spawnData.StartPointIndex) == false)
+                spawnPointIndexSet.Add(spawnData.StartPointIndex);
+        }
+
+        foreach (var spawnPointIndex in spawnPointIndexSet)
+        {
+            _skipButtonUIList[spawnPointIndex].gameObject.SetActive(true);
+        }
+    }
+
+    private void DeactiveAllSkipButtonUIs()
+    {
+        foreach (SkipButtonUI buttonUI in _skipButtonUIList)
+        {
+            buttonUI.gameObject.SetActive(false);
         }
     }
 
