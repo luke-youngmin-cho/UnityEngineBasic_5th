@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(Pathfinder))]
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
     private float _hp;
     public float Hp
@@ -51,6 +51,11 @@ public class Enemy : MonoBehaviour
             Debug.LogWarning("[Enemy] : 길찾기 실패했습니다.");
             gameObject.SetActive(false);
         }
+    }
+
+    public void Damage(float amount)
+    {
+        Hp -= amount;
     }
 
     private void Awake()

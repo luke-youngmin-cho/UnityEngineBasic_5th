@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TowerAssets : MonoBehaviour
@@ -17,6 +19,11 @@ public class TowerAssets : MonoBehaviour
 
     [SerializeField] private List<Tower> _towers = new List<Tower>();
     [SerializeField] private List<GameObject> _previewTowers = new List<GameObject>();
+
+    public IEnumerable<Tower> GetTowers(Predicate<Tower> match)
+    {
+        return _towers.FindAll(match);
+    }
 
     public bool TryGetTower(TowerInfo info, out Tower tower)
     {
