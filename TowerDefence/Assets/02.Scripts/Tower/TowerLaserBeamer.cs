@@ -53,9 +53,15 @@ public class TowerLaserBeamer : TowerAttacker
             {
                 _beam.enabled = true;
                 _beamHitEffect.Play();
+
+                // 공격 시작할 때 slow 디버프 주고, 해당 디버프는 공격 대상이 바뀌었을때 비활성화 시킨다.
+                Transform tmpTarget = _targetMem;
+                tmpTarget.GetComponent<Enemy>().BuffManager.ActiveBuff(new BuffSlow<Enemy>(_slowGain),
+                                                                       () => tmpTarget != _targetMem);
             }
         }
     }
+    [SerializeField] private float _slowGain = 1.5f;
 
 
     protected override void FixedUpdate()

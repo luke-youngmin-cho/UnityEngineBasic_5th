@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 /// <summary>
@@ -100,6 +101,7 @@ public class ObjectPool : MonoBehaviour
         }
 
         GameObject go = _queueDictionary[name].Dequeue();
+        
         go.transform.SetParent(null);
         go.transform.position = pos;
         go.transform.rotation = rotation;

@@ -5,6 +5,9 @@ using UnityEngine;
 public class ProjectileRocket : Projectile
 {
     [SerializeField] private float _explosionRange = 2.0f;
+    [SerializeField] private float _burningDamage = 1.0f;
+    [SerializeField] private float _burningPeriod = 0.5f;
+    [SerializeField] private float _burningDuration = 5.0f;
     protected override void OnTriggerEnter(Collider other)
     {
         if ((1 << other.gameObject.layer & TargetLayer) > 0 ||
@@ -17,7 +20,8 @@ public class ProjectileRocket : Projectile
             foreach (var col in cols)
             {
                 enemy = col.GetComponent<Enemy>();
-                enemy.Hp -= Damage * (1.0f - (Vector3.Distance(transform.position, col.transform.position) / _explosionRange));
+                enemy.Damage(Damage * (1.0f - (Vector3.Distance(transform.position, col.transform.position) / _explosionRange)));
+                enemy.BuffManager.ActiveBuff(new BuffBurning<Enemy>(_burningDamage, _burningPeriod), _burningDuration);
             }
 
             ObjectPool.Instance.Return(gameObject);

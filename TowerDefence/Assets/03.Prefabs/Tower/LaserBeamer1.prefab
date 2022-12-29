@@ -5050,6 +5050,7 @@ MonoBehaviour:
   _damageChargeTime: 1
   _damageGain: 1.5
   _damagePeriod: 0.1
+  _slowGain: 1.5
 --- !u!1 &8895764723239808339
 GameObject:
   m_ObjectHideFlags: 0

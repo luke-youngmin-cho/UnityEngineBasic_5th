@@ -31,6 +31,7 @@ public class BuffBurning<T> : IBuff<T>
         if (Time.time - _timeMark > _period)
         {
             subject.Damage(_damage);
+            Debug.Log($"[BuffBuring] : {subject} 가 불타오르고 있습니다. 현재 체력 {subject.Hp}");
             _timeMark = Time.time;
         }
     }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(Pathfinder))]
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour, IDamageable, ISpeed
 {
-    private float _hp;
+    [SerializeField] private float _hp;
     public float Hp
     {
         get
@@ -31,7 +31,12 @@ public class Enemy : MonoBehaviour, IDamageable
     public event Action OnHpMin;
     public event Action<float> OnHpChanged;
     public int Price;
-    public float Speed;
+    [SerializeField]private float _speed;
+    public float Speed {
+        get => _speed;
+        set => _speed = value;
+    }
+    public float SpeedOrigin = 1.0f;
 
     private Pathfinder _pathfinder;
     private List<Transform> _path;
@@ -39,6 +44,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private Transform _nextPoint;
     private float _posTolerance = 0.05f;
     private Rigidbody _rb;
+
+    public BuffManager<Enemy> BuffManager { get; private set; }
 
     public void SetPath(Transform start, Transform end)
     {
@@ -61,7 +68,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _pathfinder = GetComponent<Pathfinder>();
+        _pathfinder = GetComponent<Pathfinder>();        
+        BuffManager = new BuffManager<Enemy>(this);
     }
 
     private void Start()
@@ -72,7 +80,9 @@ public class Enemy : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         Hp = HpMax;
+        Speed = SpeedOrigin;
     }
+
 
     private void FixedUpdate()
     {
@@ -95,7 +105,13 @@ public class Enemy : MonoBehaviour, IDamageable
         }
 
         _rb.rotation = Quaternion.LookRotation(dir);
-        _rb.MovePosition(_rb.position + dir * Speed * Time.fixedDeltaTime);
+
+        if (_speed != SpeedOrigin)
+        {
+            Debug.Log($"½ºÇÇµå¹Ù²ñ {Speed}");
+        }
+
+        _rb.MovePosition(_rb.position + dir * _speed * Time.fixedDeltaTime);
     }
 
     private bool TryGetNextPoint(int pointIndex, out Transform nextPoint)
