@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,29 @@ using UnityEngine;
 /// </summary>
 public class EnemySpawner : MonoBehaviour
 {
+    public bool IsLevelSpawningFinished
+        => (_currentStage >= Data.StageDatas.Count) &&
+           (_stageDatas.Count == 0) &&
+           (TotalEnemiesSpawned - TotalEnemiesDead) == (Data.LifeInit - Player.Instance.Life);
+                    
+    public int TotalEnemiesSpawned;
+    private int _totalEnemiesDead;
+    public int TotalEnemiesDead
+    {
+        get
+        {
+            return _totalEnemiesDead;
+        }
+        set
+        {
+            _totalEnemiesDead = value;
+
+            if (IsLevelSpawningFinished)
+            {
+                GameManager.Instance.SucceedLevel();
+            }
+        }
+    }
     public LevelData Data;
     private List<StageData> _stageDatas = new List<StageData>(); // 현재 소환 진행중인 스테이지 데이터들
     private List<int> _spawnedStageList = new List<int>(); // 소환을 진행한 스테이지 인덱스들
@@ -18,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Vector3 _offset;
     [SerializeField] private SkipButtonUI _skipButtonUIPrefab;
     private List<SkipButtonUI> _skipButtonUIList = new List<SkipButtonUI>();
-
+    
     /// <summary>
     /// 다음 스테이지를 시작하는 함수
     /// </summary>
@@ -101,11 +125,15 @@ public class EnemySpawner : MonoBehaviour
                                                                     + _offset,
                                                                     Quaternion.identity).GetComponent<Enemy>();
 
-                            enemy.OnHpMin += () => ObjectPool.Instance.Return(enemy.gameObject);
+                            enemy.OnHpMin += () =>
+                            {
+                                TotalEnemiesDead++;
+                                ObjectPool.Instance.Return(enemy.gameObject);
+                            }; 
                             enemy.SetPath(Paths.Instance.StartPoints[_stageDatas[i].SpawnDatas[j].StartPointIndex],
                                           Paths.Instance.EndPoints[_stageDatas[i].SpawnDatas[j].EndPointIndex]);
 
-
+                            TotalEnemiesSpawned++;
                             _countersList[i][j]--;
                             _termTimersList[i][j] = _stageDatas[i].SpawnDatas[j].Term;
                         }

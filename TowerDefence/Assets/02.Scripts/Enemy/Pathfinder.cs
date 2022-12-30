@@ -69,6 +69,11 @@ public class Pathfinder : MonoBehaviour
     //                            Public Methods
     //===========================================================================
 
+    private void Awake()
+    {
+        SetUp();
+    }
+
     public static void SetUp()
     {
         Transform pathPointsParent = GameObject.Find("Paths").transform;

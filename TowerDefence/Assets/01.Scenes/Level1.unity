@@ -3244,6 +3244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014d290f62ade774db1ffd5e1f45aa4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TotalEnemiesSpawned: 0
   Data: {fileID: 11400000, guid: 24de3d18c9de867478638c52573a1705, type: 2}
   _offset: {x: 0, y: 0.25, z: 0}
   _skipButtonUIPrefab: {fileID: 2141669031108656975, guid: dc52252d91f36cd4bad0af3bb3a704cd, type: 3}
@@ -17754,7 +17755,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d04471cf538315428d7b9c55495e9dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Current: 0
   Data: {fileID: 11400000, guid: 24de3d18c9de867478638c52573a1705, type: 2}
+  _successUI: {fileID: 0}
+  _failureUI: {fileID: 0}
 --- !u!4 &924491041
 Transform:
   m_ObjectHideFlags: 0
