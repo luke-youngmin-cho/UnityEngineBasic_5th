@@ -3245,7 +3245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TotalEnemiesSpawned: 0
-  Data: {fileID: 11400000, guid: 24de3d18c9de867478638c52573a1705, type: 2}
+  Data: {fileID: 11400000, guid: b5a126b68947d654fa6ed24d63f9729e, type: 2}
   _offset: {x: 0, y: 0.25, z: 0}
   _skipButtonUIPrefab: {fileID: 2141669031108656975, guid: dc52252d91f36cd4bad0af3bb3a704cd, type: 3}
 --- !u!4 &202952319
@@ -17756,8 +17756,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Current: 0
-  Data: {fileID: 11400000, guid: 24de3d18c9de867478638c52573a1705, type: 2}
-  _successUI: {fileID: 1925749675122721304, guid: 75dcf14185fa65a43b666c6fe014ac69, type: 3}
+  Data: {fileID: 11400000, guid: b5a126b68947d654fa6ed24d63f9729e, type: 2}
+  _successUI: {fileID: 1218358150}
   _failureUI: {fileID: 0}
 --- !u!4 &924491041
 Transform:

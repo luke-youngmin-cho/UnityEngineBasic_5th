@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISpeed
     public float HpMax = 100;
     public event Action OnHpMin;
     public event Action<float> OnHpChanged;
+    public event Action OnReachedToEnd;
     public int Price;
     [SerializeField]private float _speed;
     public float Speed {
@@ -100,7 +101,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISpeed
             }
             else
             {
-                OnReachedToEnd();
+                ReachedToEnd();
             }
         }
 
@@ -126,9 +127,10 @@ public class Enemy : MonoBehaviour, IDamageable, ISpeed
         return nextPoint;
     }
 
-    private void OnReachedToEnd()
+    private void ReachedToEnd()
     {
         Player.Instance.Life -= 1;
+        OnReachedToEnd?.Invoke();
         ObjectPool.Instance.Return(gameObject);
     }
 }

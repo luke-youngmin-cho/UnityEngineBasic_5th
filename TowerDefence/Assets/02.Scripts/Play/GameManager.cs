@@ -22,8 +22,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _successUI;
     [SerializeField] private GameObject _failureUI;
 
+    public void GoToLobby()
+    {
+        Data = null;
+        ChangeState(StateType.WaitUntilLevelSelected);
+        SceneManager.LoadScene("SelectLevel");
+    }
+
     public void SelectLevel(LevelData levelData)
     {
+        ChangeState(StateType.WaitUntilLevelSelected);
         Data = levelData;
     }
 
@@ -103,4 +111,5 @@ public class GameManager : MonoBehaviour
     }
 
     private void MoveNext() => Current++;
+    private void ChangeState(StateType newState) => Current = newState;
 }

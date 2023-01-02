@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
                 _life = value;
                 if (value <= 0)
                     GameManager.Instance.FailLevel();
+
                 OnLifeChanged?.Invoke(value);
             }
         }
