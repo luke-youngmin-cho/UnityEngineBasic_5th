@@ -14,6 +14,7 @@ namespace ULB.RPG.FSM
         public Func<bool> canExecute { get; set; }
         public List<KeyValuePair<Func<bool>, int>> transitions { get; set; }
 
+        protected MovementBase movement;
         protected AnimatorWrapper animator;
         protected bool hasExitTime;
 
@@ -29,6 +30,7 @@ namespace ULB.RPG.FSM
             this.transitions = transitions;
             this.hasExitTime = hasExitTime;
             animator = owner.GetComponent<AnimatorWrapper>();
+            movement = owner.GetComponent<MovementBase>();
         }
 
         public virtual void Execute()
