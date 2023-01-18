@@ -29,17 +29,15 @@ namespace ULB.RPG
         private Mode _mode;
         protected Vector3 inertia;
         private float _drag;
-        private Animator _animator;
+        [SerializeField] private Animator _animator;
 
         protected abstract float v { get; }
         protected abstract float h { get; }
         protected abstract float gain { get; }
-        protected Rigidbody rb;
+        [SerializeField] protected Rigidbody rb;
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
-            rb = GetComponent<Rigidbody>();
             _drag = rb.drag;
             _mode = Mode.RootMotion;
         }

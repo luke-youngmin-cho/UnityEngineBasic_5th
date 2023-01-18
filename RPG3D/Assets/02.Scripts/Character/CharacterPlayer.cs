@@ -2,7 +2,6 @@
 
 namespace ULB.RPG
 {
-
     public class CharacterPlayer : CharacterBase
     {
         protected override CharacterStateMachine CreateMachine()
