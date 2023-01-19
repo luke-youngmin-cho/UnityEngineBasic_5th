@@ -53,6 +53,7 @@ namespace ULB.RPG.FSM
 
             if (states[nextType].canExecute.Invoke())
             {
+                Debug.Log($"{currentType} -> {nextType}");
                 current.Stop();
                 current = states[nextType];
                 current.Execute();
