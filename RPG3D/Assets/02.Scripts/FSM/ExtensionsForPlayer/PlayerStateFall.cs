@@ -23,5 +23,10 @@ namespace ULB.RPG.FSM
             base.Stop();
             animator.SetBool("doFall", false);
         }
+
+        public override int Update()
+        {
+            return base.Update();
+        }
     }
 }

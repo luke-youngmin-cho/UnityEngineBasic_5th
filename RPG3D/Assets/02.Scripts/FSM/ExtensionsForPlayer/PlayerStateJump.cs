@@ -9,7 +9,7 @@ namespace ULB.RPG.FSM
     public class PlayerStateJump : CharacterStateBase
     {
         private Rigidbody _rb;
-        private float _jumpForce = 3.0f;
+        private float _jumpForce = 4.0f;
         private float _startTimeMark;
 
         public PlayerStateJump(int id, GameObject owner, Func<bool> canExecute, List<KeyValuePair<Func<bool>, int>> transitions, bool hasExitTime) : base(id, owner, canExecute, transitions, hasExitTime)
@@ -34,7 +34,7 @@ namespace ULB.RPG.FSM
 
         public override int Update()
         {
-            return (Time.time - _startTimeMark > 0.2f) ? base.Update() : id;
+            return (Time.time - _startTimeMark > 0.01f) ? base.Update() : id;
         }
     }
 }

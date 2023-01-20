@@ -17,6 +17,28 @@ namespace ULB.RPG.InputSystems
         private Dictionary<KeyCode, Action> _keyPressActions = new Dictionary<KeyCode, Action>();
         private Dictionary<KeyCode, Action> _keyUpActions = new Dictionary<KeyCode, Action>();
 
+        public bool mouse0Trigger
+        {
+            get
+            {
+                if (_mouse0Trigger)
+                {
+                    _mouse0Trigger = false;
+                    return true;
+                }
+                return false;
+            }
+            set
+            {
+                _mouse0Trigger = value;
+                if (value)
+                    OnMouse0TriggerActivated();
+            }
+        }
+        private bool _mouse0Trigger;
+        public event Action OnMouse0TriggerActivated;
+
+
         public void RegisterKeyDownAction(KeyCode key, Action action)
         {
             if (_keyDownActions.ContainsKey(key))
@@ -47,6 +69,11 @@ namespace ULB.RPG.InputSystems
 
         private void Update()
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                mouse0Trigger = true;
+            }
+
             foreach (var pair in _keyDownActions)
             {
                 if (Input.GetKeyDown(pair.Key))

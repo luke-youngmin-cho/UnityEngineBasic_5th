@@ -57,7 +57,8 @@ namespace ULB.RPG.FSM
                                               {
                                                   new KeyValuePair<Func<bool>, int>
                                                   (
-                                                      () => groundDetector.isDetected,
+                                                      () => groundDetector.CastGround(0.5f, out RaycastHit hit) ||
+                                                            groundDetector.isDetected,
                                                       (int)StateType.Land
                                                   ),
                                               },
