@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ULB.RPG.InputSystems;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace ULB.RPG.FSM
@@ -80,7 +81,53 @@ namespace ULB.RPG.FSM
                                               hasExitTime: true);
             states.Add(StateType.Land, land);
 
+            IState attack = new PlayerStateAttack(id: (int)StateType.Attack,
+                                              owner: owner,
+                                              canExecute: () => currentType == StateType.Move,
+                                              transitions: new List<KeyValuePair<Func<bool>, int>>()
+                                              {
+                                                  new KeyValuePair<Func<bool>, int>
+                                                  (
+                                                      () => true,
+                                                      (int)StateType.Move
+                                                  ),
+                                              },
+                                              hasExitTime: false);
+            states.Add(StateType.Attack, attack);
+
+            IState hurt = new PlayerStateHurt(id: (int)StateType.Hurt,
+                                              owner: owner,
+                                              canExecute: () => true,
+                                              transitions: new List<KeyValuePair<Func<bool>, int>>()
+                                              {
+                                                  new KeyValuePair<Func<bool>, int>
+                                                  (
+                                                      () => true,
+                                                      (int)StateType.Move
+                                                  ),
+                                              },
+                                              hasExitTime: true);
+            states.Add(StateType.Hurt, hurt);
+
+            IState die = new PlayerStateDie(id: (int)StateType.Die,
+                                              owner: owner,
+                                              canExecute: () => true,
+                                              transitions: new List<KeyValuePair<Func<bool>, int>>()
+                                              {
+                                                  new KeyValuePair<Func<bool>, int>
+                                                  (
+                                                      () => false,
+                                                      (int)StateType.Move
+                                                  ),
+                                              },
+                                              hasExitTime: true);
+            states.Add(StateType.Die, die);
+
             KeyInputHandler.instance.RegisterKeyPressAction(KeyCode.Space, () => ChangeState(StateType.Jump));
+            KeyInputHandler.instance.OnMouse0TriggerActivated += () => ChangeState(StateType.Attack);
+
+            KeyInputHandler.instance.RegisterKeyDownAction(KeyCode.H, () => ChangeState(StateType.Hurt));
+            KeyInputHandler.instance.RegisterKeyDownAction(KeyCode.K, () => ChangeState(StateType.Die));
         }
     }
 }
