@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -241,6 +242,26 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 640e6aed6b947834a87f702f7318c3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 1534920307}
+  _minDistance: 3
+  _maxDistance: 30
+  _wheelSpeed: 500
+  _xMoveSpeed: 500
+  _yMoveSpeed: 250
+  _yLimitMin: 5
+  _yLimitMax: 80
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,6 +1118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39a34e6eb0a805f4590346175777bb6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _monitorOnMachineHash: 0
+  _monitorOnMachineHashMem: 0
+  _monitorOffMachineHash: 0
+  _monitorOnStateHash: 0
+  _monitorOnStateHashMem: 0
+  _monitorOffStateHash: 0
   _animator: {fileID: 1534920295}
 --- !u!136 &1534920300
 CapsuleCollider:
@@ -1160,3 +1187,9 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!4 &1534920307 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4351237314720120, guid: 29c640f20d3d69a4daef0af17b12e987,
+    type: 3}
+  m_PrefabInstance: {fileID: 1534920293}
+  m_PrefabAsset: {fileID: 0}
