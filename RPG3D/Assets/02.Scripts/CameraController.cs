@@ -19,6 +19,10 @@ public class CameraController : MonoBehaviour
         _distance = Vector3.Distance(transform.position, _target.position);
         _y = transform.eulerAngles.x;
         _x = transform.eulerAngles.y;
+        if (Test.instance == null)
+        {
+            Debug.LogError("Failed to create singleton");
+        }
     }
 
     private void Start()

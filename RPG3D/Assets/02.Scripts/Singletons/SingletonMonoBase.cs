@@ -9,14 +9,17 @@ public abstract class SingletonMonoBase<T> : MonoBehaviour
     {
         get
         {
-            if (_instance == null)
+            lock (_lock)
             {
-                GameObject go = new GameObject();
-                go.name = typeof(T).Name;
-                _instance = go.AddComponent<T>();
+                if (_instance == null)
+                {
+                    _instance = new GameObject(typeof(T).Name).AddComponent<T>();
+                }
             }
+            
             return _instance;
         }
     }
     public static T _instance;
+    private static volatile object _lock = new object();
 }
