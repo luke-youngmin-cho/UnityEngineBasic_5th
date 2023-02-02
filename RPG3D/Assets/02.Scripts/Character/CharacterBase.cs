@@ -8,7 +8,8 @@ namespace ULB.RPG
     /// </summary>
     public abstract class CharacterBase : MonoBehaviour
     {
-        protected CharacterStateMachine machine;
+        public CharacterStateMachine machine;
+        public Transform target;
 
         protected abstract CharacterStateMachine CreateMachine();
         protected virtual void UpdateMachine()
