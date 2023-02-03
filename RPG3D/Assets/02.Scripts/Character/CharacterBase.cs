@@ -17,12 +17,12 @@ namespace ULB.RPG
             machine.Update();
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             machine = CreateMachine();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             UpdateMachine();
         }

@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ULB.RPG.AISystems
 {
@@ -20,7 +21,7 @@ namespace ULB.RPG.AISystems
 
         #region Builder
         private Behaviour _current;
-        private Stack<Composite> _compositeStack;
+        private Stack<Composite> _compositeStack = new Stack<Composite>();
 
         public BehaviourTree StartBuild()
         {
@@ -130,6 +131,27 @@ namespace ULB.RPG.AISystems
             Behaviour repeat = new Repeat(times, repeatPolicy);
             AttachAsChild(_current, repeat);
             _current = repeat;
+            return this;
+        }
+
+        public BehaviourTree InSight(CharacterBase owner, float radius, float angle, float angleDelta, float height, LayerMask targetMask)
+        {
+            Behaviour inSight = new InSight(owner, radius, angle, angleDelta, height, targetMask);
+            AttachAsChild(_current, inSight);
+            _current = inSight;
+            return this;
+        }
+
+        public BehaviourTree Logger(string log)
+        {
+            Behaviour logger = new Logger(log);
+            AttachAsChild(_current, logger);
+
+            if (_compositeStack.Count > 0)
+                _current = _compositeStack.Peek();
+            else
+                _current = null;
+
             return this;
         }
         #endregion

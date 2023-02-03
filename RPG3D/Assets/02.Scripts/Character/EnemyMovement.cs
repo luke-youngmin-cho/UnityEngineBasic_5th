@@ -6,10 +6,10 @@ namespace ULB.RPG
 {
     public class EnemyMovement : MovementBase
     {
-        protected override float v => throw new System.NotImplementedException();
+        protected override float v { get; }
 
-        protected override float h => throw new System.NotImplementedException();
+        protected override float h { get; }
 
-        protected override float gain => throw new System.NotImplementedException();
+        protected override float gain { get; }
     }
 }
