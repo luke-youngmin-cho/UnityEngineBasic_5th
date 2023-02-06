@@ -6,10 +6,18 @@ namespace ULB.RPG
 {
     public class EnemyMovement : MovementBase
     {
-        protected override float v { get; }
+        public override float v => _v;
+        public override float h => _h;
+        public override float gain => _gain;
 
-        protected override float h { get; }
+        private float _v, _h, _gain;
+        public override void SetMove(float v, float h, float gain)
+        {
+            base.SetMove(v, h, gain);
+            _v = v;
+            _h = h;
+            _gain = gain;
+        }
 
-        protected override float gain { get; }
     }
 }

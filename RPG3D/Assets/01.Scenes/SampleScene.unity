@@ -349,7 +349,7 @@ PrefabInstance:
     - target: {fileID: 8272943599223628453, guid: 47b41978aba272c47ae5f4a2f7179c61,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.98
+      value: 37.64
       objectReference: {fileID: 0}
     - target: {fileID: 8272943599223628453, guid: 47b41978aba272c47ae5f4a2f7179c61,
         type: 3}
@@ -359,7 +359,7 @@ PrefabInstance:
     - target: {fileID: 8272943599223628453, guid: 47b41978aba272c47ae5f4a2f7179c61,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.94
+      value: 17.48
       objectReference: {fileID: 0}
     - target: {fileID: 8272943599223628453, guid: 47b41978aba272c47ae5f4a2f7179c61,
         type: 3}
@@ -717,6 +717,7 @@ MonoBehaviour:
   _targetMask:
     serializedVersion: 2
     m_Bits: 32768
+  _attackRange: 1
 --- !u!136 &294464375
 CapsuleCollider:
   m_ObjectHideFlags: 0

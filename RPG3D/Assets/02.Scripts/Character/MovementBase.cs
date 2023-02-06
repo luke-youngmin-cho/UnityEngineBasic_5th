@@ -31,10 +31,14 @@ namespace ULB.RPG
         private float _drag;
         [SerializeField] private Animator _animator;
 
-        protected abstract float v { get; }
-        protected abstract float h { get; }
-        protected abstract float gain { get; }
+        public abstract float v { get; }
+        public abstract float h { get; }
+        public abstract float gain { get; }
         [SerializeField] protected Rigidbody rb;
+
+
+        public virtual void SetMove(float v, float h, float gain) { }
+
 
         private void Awake()
         {
