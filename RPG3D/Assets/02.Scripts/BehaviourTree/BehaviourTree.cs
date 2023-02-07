@@ -19,6 +19,11 @@ namespace ULB.RPG.AISystems
             _root.Invoke();
         }
 
+        public void Reset()
+        {
+            _root.running = null;
+        }
+
         #region Builder
         private Behaviour _current;
         private Stack<Composite> _compositeStack = new Stack<Composite>();
@@ -152,6 +157,22 @@ namespace ULB.RPG.AISystems
             else
                 _current = null;
 
+            return this;
+        }
+
+        public BehaviourTree RandomKeep(float minTime, float maxTime)
+        {
+            Behaviour randomKeep = new RandomKeep(minTime, maxTime);
+            AttachAsChild(_current, randomKeep);
+            _current = randomKeep;
+            return this;
+        }
+
+        public BehaviourTree RandomSleep(float minTime, float maxTime)
+        {
+            Behaviour randomSleep = new RandomSleep(minTime, maxTime);
+            AttachAsChild(_current, randomSleep);
+            _current = randomSleep;
             return this;
         }
         #endregion

@@ -38,6 +38,10 @@ namespace ULB.RPG
 
 
         public virtual void SetMove(float v, float h, float gain) { }
+        public virtual void ResetMove()
+        {
+            inertia = Vector3.zero;
+        }
 
 
         private void Awake()
