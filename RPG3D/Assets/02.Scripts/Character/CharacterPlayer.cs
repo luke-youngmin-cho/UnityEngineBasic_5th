@@ -8,5 +8,17 @@ namespace ULB.RPG
         {
             return new PlayerStateMachine(gameObject);
         }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            onHpDecreased += (value) => machine.ChangeState(CharacterStateMachine.StateType.Hurt);
+            onHpMin += () => machine.ChangeState(CharacterStateMachine.StateType.Die);
+        }
+
+        public override void Hit()
+        {
+            base.Hit();
+        }
     }
 }

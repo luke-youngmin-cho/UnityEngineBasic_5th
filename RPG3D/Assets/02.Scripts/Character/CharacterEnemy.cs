@@ -34,6 +34,16 @@ namespace ULB.RPG
         {
             base.Awake();
             BuildAITree();
+            onHpDecreased += (value) =>
+            {
+                _aiTree.Reset();
+                machine.ChangeState(CharacterStateMachine.StateType.Hurt);
+            };
+            onHpMin += () =>
+            {
+                _aiTree.Reset();
+                machine.ChangeState(CharacterStateMachine.StateType.Die);
+            };
         }
 
         protected override void Update()
@@ -58,10 +68,10 @@ namespace ULB.RPG
                 .Sequence()
                     .Condition(() =>
                     {
-                        return machine.currentType == CharacterStateMachine.StateType.Hurt ||
-                               machine.currentType == CharacterStateMachine.StateType.Die;
+                        return machine.currentType != CharacterStateMachine.StateType.Hurt &&
+                               machine.currentType != CharacterStateMachine.StateType.Die;
                     })
-                        .Execution(() => Result.Failure)
+                        .Execution(() => Result.Success)
                     .Selector()
                         .InSight(this, 10.0f, 90, 1.0f, 0.75f, _targetMask)
                             .Selector()
