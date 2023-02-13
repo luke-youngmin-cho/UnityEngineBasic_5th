@@ -17,7 +17,8 @@ public class Weapon : Equipment
         {
             if (value)
                 targetsCasted.Clear();
-            
+
+            _castBound.enabled = value;
             _doCast = value;
         }
     }
@@ -32,7 +33,7 @@ public class Weapon : Equipment
         _damageableMask = (1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemy"));
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (doCast == false)
             return;
