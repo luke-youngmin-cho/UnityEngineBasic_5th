@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ULB.RPG.AISystems;
 using ULB.RPG.FSM;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace ULB.RPG
 {
@@ -38,11 +39,13 @@ namespace ULB.RPG
             {
                 _aiTree.Reset();
                 machine.ChangeState(CharacterStateMachine.StateType.Hurt);
+                Debug.Log($"{gameObject.name} hurt {value}");
             };
             onHpMin += () =>
             {
                 _aiTree.Reset();
                 machine.ChangeState(CharacterStateMachine.StateType.Die);
+                Debug.Log($"{gameObject.name} die");
             };
         }
 
@@ -150,5 +153,14 @@ namespace ULB.RPG
                             });
 
         }
+
+        #region AnimationEvents
+        public void StartCastRightHandWeapon() { }
+        public void HitRightHandWeapon(int targetNum) { }
+        public void StartCastLeftHandWeapon() { }
+        public void HitLeftHandWeapon(int targetNum) { }
+
+
+        #endregion
     }
 }

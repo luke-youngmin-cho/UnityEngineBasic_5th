@@ -7,6 +7,13 @@ using UnityEngine.Experimental.AI;
 [RequireComponent(typeof(BoxCollider))]
 public class Weapon : Equipment
 {
+    public enum WeaponType
+    {
+        None,
+        BareHand,
+        Sythe,
+    }
+    public WeaponType weaponType;
     public bool doCast
     {
         get

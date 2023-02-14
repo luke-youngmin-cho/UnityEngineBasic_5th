@@ -62,6 +62,7 @@ namespace ULB.RPG
 
         protected virtual void Awake()
         {
+            hp = hpMax;
             machine = CreateMachine();
         }
 

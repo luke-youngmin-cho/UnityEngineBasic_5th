@@ -60,3 +60,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   description: "\uB9E8\uC190"
+  type: 0
+  weaponType: 1
