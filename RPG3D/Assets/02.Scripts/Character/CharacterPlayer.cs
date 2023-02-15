@@ -26,9 +26,9 @@ namespace ULB.RPG
                         if (_rightHand.childCount > 0)
                         {
                             Destroy(_rightHand.GetChild(0).gameObject);
-                            Instantiate(equipment, _rightHand);
-                            SetAnimatorParameterForWeapon((Weapon)equipment);
                         }
+                        Instantiate(equipment, _rightHand);
+                        SetAnimatorParameterForWeapon((Weapon)equipment);
                     }
                     break;
                 case Equipment.EquipType.LeftHandWeapon:
@@ -36,8 +36,8 @@ namespace ULB.RPG
                         if (_leftHand.childCount > 0)
                         {
                             Destroy(_leftHand.GetChild(0).gameObject);
-                            Instantiate(equipment, _leftHand);
                         }
+                        Instantiate(equipment, _leftHand);
                     }
                     break;
                 case Equipment.EquipType.DoubleHandWeapon:
@@ -68,6 +68,8 @@ namespace ULB.RPG
                 default:
                     break;
             }
+
+            equipment.Equip(this);
             return true;
         }
 
@@ -123,6 +125,7 @@ namespace ULB.RPG
                         if (_rightHand.childCount <= 0)
                             return false;
 
+                        _rightHand.GetChild(0).GetComponent<Equipment>().Unequip(this);
                         Destroy(_rightHand.GetChild(0).gameObject);
                         Instantiate(_bareHand, _leftHand).type = Equipment.EquipType.LeftHandWeapon;
                         Instantiate(_bareHand, _rightHand).type = Equipment.EquipType.RightHandWeapon;
@@ -141,6 +144,7 @@ namespace ULB.RPG
                         // 장착해제
                         // 맨손장착
                         // 인벤토리에 해제한 장비 추가
+                        _rightHand.GetChild(0).GetComponent<Equipment>().Unequip(this);
                         Destroy(_rightHand.GetChild(0).gameObject);
                         Instantiate(_bareHand, _leftHand).type = Equipment.EquipType.LeftHandWeapon;
                         Instantiate(_bareHand, _rightHand).type = Equipment.EquipType.RightHandWeapon;
@@ -160,6 +164,8 @@ namespace ULB.RPG
                 default:
                     break;
             }
+
+            
             return true;
         }
         public bool TryGetEquipment(Equipment.EquipType equipType, out Equipment equipment)
@@ -236,7 +242,7 @@ namespace ULB.RPG
             {
                 foreach (IDamageable target in weapon.targetsCasted.Values)
                 {
-                    target.Damage(10);
+                    target.Damage(stats[StatType.STR].valueModified);
                     targetNum--;
                     if (targetNum <= 0)
                         return;
@@ -257,7 +263,7 @@ namespace ULB.RPG
             {
                 foreach (IDamageable target in weapon.targetsCasted.Values)
                 {
-                    target.Damage(10);
+                    target.Damage(stats[StatType.STR].valueModified);
                     targetNum--;
                     if (targetNum <= 0)
                         return;

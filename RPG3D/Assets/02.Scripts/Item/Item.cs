@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour
+namespace ULB.RPG
 {
-    public int id;
-    public string description;
+    public abstract class Item : MonoBehaviour
+    {
+        public int id;
+        public string description;
+    }
 }

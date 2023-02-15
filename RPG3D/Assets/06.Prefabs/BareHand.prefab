@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 201137591832031334}
   - component: {fileID: 202151651716274316}
   - component: {fileID: 8790743838020092587}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: BareHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Sythe : Weapon
+namespace ULB.RPG
 {
+    public class Sythe : Weapon
+    {
+    }
 }

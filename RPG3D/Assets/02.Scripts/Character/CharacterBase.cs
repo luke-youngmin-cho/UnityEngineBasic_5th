@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using ULB.RPG.FSM;
 using System;
+using ULB.RPG.StatSystems;
 
 namespace ULB.RPG
 {
@@ -12,6 +13,7 @@ namespace ULB.RPG
         public CharacterStateMachine machine;
         public Transform target;
 
+        public Stats stats;
         public event Action<int> onHpDecreased;
         public event Action<int> onHpIncreased;
         public event Action onHpMin;
