@@ -61,4 +61,17 @@ MonoBehaviour:
   id: 0
   description: "\uB9E8\uC190"
   type: 0
+  statModifiers:
+  - type: 0
+    value: 5
+    modType: 0
+  - type: 1
+    value: 5
+    modType: 0
+  - type: 2
+    value: 5
+    modType: 0
+  - type: 3
+    value: 5
+    modType: 0
   weaponType: 1
