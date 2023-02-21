@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEngine;
 using Unity.VisualScripting;
 
-public class SingletonBase<T>
+public abstract class SingletonBase<T>
     where T : SingletonBase<T>
 {
     public static T instance
@@ -29,6 +29,8 @@ public class SingletonBase<T>
     }
     private static T _instance;
     private static volatile object _lock = new object();
+
+    protected virtual void Init() { }
 }
 
 public class Test : SingletonBase<Test>
