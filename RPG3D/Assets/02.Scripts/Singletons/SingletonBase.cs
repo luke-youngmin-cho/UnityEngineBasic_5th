@@ -20,7 +20,7 @@ public abstract class SingletonBase<T>
                     //_instance = (T)constructorInfo.Invoke(new object[] { });
 
                     _instance = (T)Activator.CreateInstance(typeof(T));
-
+                    _instance.Init();
                     Debug.Log($"{_instance} is created");
                 }
             }

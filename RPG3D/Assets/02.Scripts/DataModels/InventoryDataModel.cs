@@ -25,9 +25,9 @@ namespace ULB.RPG.DataModels
     {
         public List<ItemData> Items;
 
-        public event Action<ItemData> OnItemAdded;
-        public event Action<ItemData> OnItemRemoved;
-        public event Action<ItemData> OnItemChanged;
+        public event Action<int, ItemData> OnItemAdded;
+        public event Action<int, ItemData> OnItemRemoved;
+        public event Action<int, ItemData> OnItemChanged;
         public event Action OnCollectionChanged;
 
         public int Count => Items.Count;
@@ -69,16 +69,18 @@ namespace ULB.RPG.DataModels
         {
             Items.Add(item);
             Save();
-            OnItemAdded?.Invoke(item);
+            OnItemAdded?.Invoke(Count - 1, item);
             OnCollectionChanged?.Invoke();
         }
 
         public bool Remove(ItemData item)
         {
-            if (Items.Remove(item))
+            int index = Items.IndexOf(item);
+            if (index >= 0)
             {
+                Items.RemoveAt(index);
                 Save();
-                OnItemRemoved?.Invoke(item);
+                OnItemRemoved?.Invoke(index, item);
                 OnCollectionChanged?.Invoke();
                 return true;
             }
@@ -92,7 +94,7 @@ namespace ULB.RPG.DataModels
                 index < Count)
             {
                 Items[index] = item;
-                OnItemChanged?.Invoke(item);
+                OnItemChanged?.Invoke(index, item);
                 OnCollectionChanged?.Invoke();
                 return true;
             }

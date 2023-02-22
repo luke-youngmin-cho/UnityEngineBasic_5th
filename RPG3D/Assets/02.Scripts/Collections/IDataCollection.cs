@@ -10,9 +10,9 @@ namespace ULB.RPG.Collections
     {
         int Count { get; }
 
-        event Action<T> OnItemAdded;
-        event Action<T> OnItemRemoved;
-        event Action<T> OnItemChanged;
+        event Action<int, T> OnItemAdded;
+        event Action<int, T> OnItemRemoved;
+        event Action<int, T> OnItemChanged;
         event Action OnCollectionChanged;
 
         void Add(T item);
