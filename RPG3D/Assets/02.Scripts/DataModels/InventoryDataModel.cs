@@ -18,6 +18,12 @@ namespace ULB.RPG.DataModels
             this.id = id;
             this.num = num;
         }
+
+        public static bool operator ==(ItemData op1, ItemData op2)
+            => op1.id == op2.id && op1.num == op2.num;
+
+        public static bool operator !=(ItemData op1, ItemData op2)
+            => !(op1 == op2);
     }
 
     [Serializable]
@@ -94,6 +100,7 @@ namespace ULB.RPG.DataModels
                 index < Count)
             {
                 Items[index] = item;
+                Save();
                 OnItemChanged?.Invoke(index, item);
                 OnCollectionChanged?.Invoke();
                 return true;
