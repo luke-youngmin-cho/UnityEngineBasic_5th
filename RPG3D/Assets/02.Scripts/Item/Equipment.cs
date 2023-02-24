@@ -9,12 +9,15 @@ namespace ULB.RPG
     {
         public enum EquipType
         {
+            None,
             RightHandWeapon,
             LeftHandWeapon,
             DoubleHandWeapon,
+            Head,
             Top,
             Bottom,
-            Head,
+            Dress,
+            Feet,
             Ring,
             Necklace
         }

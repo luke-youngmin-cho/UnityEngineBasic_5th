@@ -10,7 +10,7 @@ namespace ULB.RPG.DataModels
         {
             get
             {
-                if (_instance)
+                if (_instance == null)
                 {
                     _instance = Instantiate(Resources.Load<ItemInfoAssets>("ItemInfoAssets"));
                     _instance.Init();

@@ -53,7 +53,8 @@ namespace ULB.RPG.Controllers
             if (_hasPicked)
                 return;
 
-            int slotID = _inventoryDataModel.FindIndex(x => x.id == itemInfo.id); // 기존에 동일한 아이템을 가지고 있다면 그 슬롯 반환
+            int slotID = _inventoryDataModel.FindIndex(x => x.id == itemInfo.id && 
+                                                            x.num + num <= itemInfo.maxNum); // 기존에 동일한 아이템을 가지고 있다면 그 슬롯 반환
             slotID = slotID >= 0 ? slotID : _inventoryDataModel.FindIndex(x => x == ItemData.empty); // 빈 슬롯 찾기
             if (slotID >= 0)
             {
