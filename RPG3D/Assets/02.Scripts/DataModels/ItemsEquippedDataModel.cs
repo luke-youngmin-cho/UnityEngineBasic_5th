@@ -8,7 +8,7 @@ namespace ULB.RPG.DataModels
 {
 
     [Serializable]
-    public class EquipmentDataModel : SingletonBase<EquipmentDataModel>, IDataCollection<int>
+    public class ItemsEquippedDataModel : SingletonBase<ItemsEquippedDataModel>, IDataCollection<int>
     {
         public List<int> Items;
 
@@ -18,9 +18,9 @@ namespace ULB.RPG.DataModels
         public event Action OnCollectionChanged;
 
         public int Count => Items.Count;
-        private string _path = Application.persistentDataPath + "/EquipmentData.json";
+        private string _path = Application.persistentDataPath + "/ItemsEquippedDataModel.json";
 
-        public EquipmentDataModel()
+        public ItemsEquippedDataModel()
         {
             Items = new List<int>();
         }
@@ -40,11 +40,16 @@ namespace ULB.RPG.DataModels
         {
             if (System.IO.File.Exists(_path) == false)
             {
+                foreach (int index in Enum.GetValues(typeof(ItemEquippedSlot.EquipType)))
+                {
+                    Items.Add(-1);
+                }  
+
                 Save();
             }
             else
             {
-                Items = JsonUtility.FromJson<EquipmentDataModel>(System.IO.File.ReadAllText(_path)).Items;
+                Items = JsonUtility.FromJson<ItemsEquippedDataModel>(System.IO.File.ReadAllText(_path)).Items;
             }
         }
 

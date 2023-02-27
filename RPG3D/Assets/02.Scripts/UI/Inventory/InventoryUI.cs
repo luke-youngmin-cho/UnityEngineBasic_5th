@@ -12,17 +12,23 @@ namespace ULB.RPG.UI
         private List<InventorySlot> _slots;
         private InventoryPresenter _presenter;
 
+
         private void Awake()
         {
             _presenter = new InventoryPresenter();
 
             _slots = new List<InventorySlot>();
-            for (int i = 0; i < _presenter.source.Count; i++)
+            for (int i = 0; i < _presenter.inventorySource.Count; i++)
             {
-                _slots.Add(Instantiate(_slotPrefab, _content));
-                _slots[i].Set(_presenter.source[i].id, _presenter.source[i].num);
+                _slots.Add(Instantiate(_slotPrefab, _content));                
+                _slots[i].Set(_presenter.inventorySource[i].id, _presenter.inventorySource[i].num);
+                int slotID = i;
+                _slots[i].onUse += (itemID) =>
+                {
+                    _presenter.equipCommand.TryExecute(slotID, itemID);
+                };
             }
-            _presenter.source.OnItemAdded += (slotID, itemData) =>
+            _presenter.inventorySource.OnItemAdded += (slotID, itemData) =>
             {
                 if (slotID > _slots.Count - 1)
                 {
@@ -31,11 +37,11 @@ namespace ULB.RPG.UI
                 }
                 _slots[slotID].Set(itemData.id, itemData.num);
             };
-            _presenter.source.OnItemRemoved += (slotID, itemData) =>
+            _presenter.inventorySource.OnItemRemoved += (slotID, itemData) =>
             {
                 _slots[slotID].Set(itemData.id, itemData.num);
             };
-            _presenter.source.OnItemChanged += (slotID, itemData) =>
+            _presenter.inventorySource.OnItemChanged += (slotID, itemData) =>
             {
                 _slots[slotID].Set(itemData.id, itemData.num);
             };

@@ -7,15 +7,15 @@ using System.Linq;
 
 namespace ULB.RPG.DataDependencySources
 {
-    public class EquipmentPresenter
+    public class ItemsEquippedPresenter
     {
-        public EquipmentSource source;
+        public ItemsEquippedSource source;
         public UnequipCommand unequipCommand;
 
         #region Equipment Source
-        public class EquipmentSource : ObservableCollection<int>
+        public class ItemsEquippedSource : ObservableCollection<int>
         {
-            public EquipmentSource(IEnumerable<int> data)
+            public ItemsEquippedSource(IEnumerable<int> data)
             {
                 foreach (var item in data)
                 {
@@ -25,18 +25,18 @@ namespace ULB.RPG.DataDependencySources
         }
         #endregion
 
-        public EquipmentPresenter()
+        public ItemsEquippedPresenter()
         {
-            source = new EquipmentSource(EquipmentDataModel.instance);
-            EquipmentDataModel.instance.OnItemAdded += (slotID, item) =>
+            source = new ItemsEquippedSource(ItemsEquippedDataModel.instance);
+            ItemsEquippedDataModel.instance.OnItemAdded += (slotID, item) =>
             {
                 source.Add(item);
             };
-            EquipmentDataModel.instance.OnItemRemoved += (slotID, item) =>
+            ItemsEquippedDataModel.instance.OnItemRemoved += (slotID, item) =>
             {
                 source.Remove(item);
             };
-            EquipmentDataModel.instance.OnItemChanged += (slotID, item) =>
+            ItemsEquippedDataModel.instance.OnItemChanged += (slotID, item) =>
             {
                 source.Change(slotID, item);
             };
@@ -47,12 +47,12 @@ namespace ULB.RPG.DataDependencySources
         #region Unequip command
         public class UnequipCommand
         {
-            private EquipmentDataModel _equipmentDataModel;
+            private ItemsEquippedDataModel _equipmentDataModel;
             private InventoryDataModel _inventoryDataModel;
 
             public UnequipCommand()
             {
-                _equipmentDataModel = EquipmentDataModel.instance;
+                _equipmentDataModel = ItemsEquippedDataModel.instance;
                 _inventoryDataModel = InventoryDataModel.instance;
             }
 

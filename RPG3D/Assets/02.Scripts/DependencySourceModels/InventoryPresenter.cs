@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using ULB.RPG.Collections;
 using ULB.RPG.DataModels;
-using System.Linq;
 
 namespace ULB.RPG.DataDependencySources
 {
     public class InventoryPresenter
     {
-        public InventorySource source;
+        public InventorySource inventorySource;
+        public ItemsEquippedSource itemsEquippedSource;
         public AddCommand addCommand;
         public RemoveCommand removeCommand;
         public SwapCommand swapCommand;
+        public EquipCommand equipCommand;
 
         #region Inventory Source
         public class InventorySource : ObservableCollection<ItemData>
@@ -27,25 +28,53 @@ namespace ULB.RPG.DataDependencySources
         }
         #endregion
 
+        #region ItemsEquipped Source
+        public class ItemsEquippedSource : ObservableCollection<int>
+        {
+            public ItemsEquippedSource(IEnumerable<int> data)
+            {
+                foreach (var item in data)
+                {
+                    Items.Add(item);
+                }
+            }
+        }
+        #endregion
+
         public InventoryPresenter()
         {
-            source = new InventorySource(InventoryDataModel.instance);
+            inventorySource = new InventorySource(InventoryDataModel.instance);
             InventoryDataModel.instance.OnItemAdded += (slotID, item) =>
             {
-                source.Add(item);
+                inventorySource.Add(item);
             };
             InventoryDataModel.instance.OnItemRemoved += (slotID, item) =>
             {
-                source.Remove(item);
+                inventorySource.Remove(item);
             };
             InventoryDataModel.instance.OnItemChanged += (slotID, item) =>
             {
-                source.Change(slotID, item);
+                inventorySource.Change(slotID, item);
+            };
+
+            itemsEquippedSource = new ItemsEquippedSource(ItemsEquippedDataModel.instance);
+            ItemsEquippedDataModel.instance.OnItemAdded += (slotID, item) =>
+            {
+                itemsEquippedSource.Add(item);
+            };
+            ItemsEquippedDataModel.instance.OnItemRemoved += (slotID, item) =>
+            {
+                itemsEquippedSource.Remove(item);
+            };
+            ItemsEquippedDataModel.instance.OnItemChanged += (slotID, item) =>
+            {
+                itemsEquippedSource.Change(slotID, item);
             };
 
             addCommand = new AddCommand();
             removeCommand = new RemoveCommand();
             swapCommand = new SwapCommand();
+            equipCommand = new EquipCommand();
         }
 
         #region Add command
@@ -173,6 +202,56 @@ namespace ULB.RPG.DataDependencySources
                 return false;
             }
         }
+        #endregion
+
+        #region Equip command
+
+        public class EquipCommand
+        {
+            InventoryDataModel _inventoryDataModel;
+            ItemsEquippedDataModel _itemsEquippedDataModel;
+
+            public EquipCommand()
+            {
+                _inventoryDataModel = InventoryDataModel.instance;
+                _itemsEquippedDataModel = ItemsEquippedDataModel.instance;
+            }
+
+            public bool CanExecute(int slotID, int itemID)
+            {
+                // -> 직업군이 맞는지, 레벨은 충족하는지, 스텟은 충족하는지,
+                // 한손무기와방패를장착하고있는데 인벤토리 빈공간없이 양손무기 장착하려고 했는지 등등..체크해야함
+                return ItemInfoAssets.instance[itemID].prefab is Equipment;
+            }
+
+            public void Execute(int slotID, int itemID)
+            {
+                // 장착하려는 장비의 타입
+                int equipType = (int)((Equipment)ItemInfoAssets.instance[itemID].prefab).type;
+
+                // 이미 장착하고있던 아이템의 ID
+                int itemEquippedID = _itemsEquippedDataModel.Items[equipType];
+                  
+                // 장착하고있던 아이템의 ID 로 인벤토리 슬롯 변경 (장착하고있던거 없으면 비움)
+                _inventoryDataModel.Change(slotID,
+                                           itemEquippedID < 0 ? ItemData.empty : new ItemData(itemEquippedID, 1));
+
+                // 장착하려던 아이템의 ID 로 장비슬롯 변경
+                _itemsEquippedDataModel.Change(equipType, itemID);
+            }
+
+            public bool TryExecute(int slotID, int itemID)
+            {
+                if (CanExecute(slotID, itemID))
+                {
+                    Execute(slotID, itemID);
+                    return true;
+                }
+                return false;
+            }
+
+        }
+
         #endregion
     }
 }

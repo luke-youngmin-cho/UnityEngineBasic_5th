@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 526435006817411305}
-  _num: {fileID: 526435006021093867}
+  _numText: {fileID: 526435006021093867}
 --- !u!1 &526435006817411303
 GameObject:
   m_ObjectHideFlags: 0
