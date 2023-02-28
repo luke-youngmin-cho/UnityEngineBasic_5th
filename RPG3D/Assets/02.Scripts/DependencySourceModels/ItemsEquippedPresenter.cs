@@ -61,20 +61,20 @@ namespace ULB.RPG.DataDependencySources
                 return _inventoryDataModel.FindIndex(x => x == ItemData.empty) >= 0;
             }
 
-            public void Execute(int itemID)
+            public void Execute(EquipType equipType, int itemID)
             {
-                _equipmentDataModel.Remove(itemID);
+                _equipmentDataModel.Change((int)equipType, -1);
                 int slotID = _inventoryDataModel.FindIndex(x => x == ItemData.empty);
                 _inventoryDataModel.Change(slotID, new ItemData(itemID, 1));
             }
 
-            public bool TryExecute(int itemID)
+            public bool TryExecute(EquipType equipType, int itemID)
             {
                 int slotID = _inventoryDataModel.FindIndex(x => x == ItemData.empty);
 
                 if (slotID >= 0)
                 {
-                    _equipmentDataModel.Remove(itemID);
+                    _equipmentDataModel.Change((int)equipType, -1);
                     _inventoryDataModel.Change(slotID, new ItemData(itemID, 1));
                     return true;
                 }

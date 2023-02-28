@@ -7,20 +7,6 @@ namespace ULB.RPG
 {
     public abstract class Equipment : Item
     {
-        public enum EquipType
-        {
-            None,
-            RightHandWeapon,
-            LeftHandWeapon,
-            DoubleHandWeapon,
-            Head,
-            Top,
-            Bottom,
-            Dress,
-            Feet,
-            Ring,
-            Necklace
-        }
         public EquipType type;
         public List<StatModifier> statModifiers = new List<StatModifier>();
 

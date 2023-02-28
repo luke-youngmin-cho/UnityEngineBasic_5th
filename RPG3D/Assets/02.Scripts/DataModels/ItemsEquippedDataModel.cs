@@ -18,7 +18,7 @@ namespace ULB.RPG.DataModels
         public event Action OnCollectionChanged;
 
         public int Count => Items.Count;
-        private string _path = Application.persistentDataPath + "/ItemsEquippedDataModel.json";
+        private string _path = Application.persistentDataPath + "/ItemsEquippedData.json";
 
         public ItemsEquippedDataModel()
         {
@@ -40,7 +40,7 @@ namespace ULB.RPG.DataModels
         {
             if (System.IO.File.Exists(_path) == false)
             {
-                foreach (int index in Enum.GetValues(typeof(ItemEquippedSlot.EquipType)))
+                foreach (int index in Enum.GetValues(typeof(EquipType)))
                 {
                     Items.Add(-1);
                 }  

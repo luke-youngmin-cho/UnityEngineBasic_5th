@@ -21,7 +21,7 @@ public class Test_EquipButtons : MonoBehaviour
 
         _Unequip.onClick.AddListener(() =>
         {
-            target.TryUnequip(Equipment.EquipType.DoubleHandWeapon);
+            target.TryUnequip(EquipType.DoubleHandWeapon);
         });
     }
 

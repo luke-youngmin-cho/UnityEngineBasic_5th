@@ -33,6 +33,16 @@ namespace ULB.RPG.UI
                 _icon.sprite = ItemInfoAssets.instance[itemID].icon;
                 _numText.text = num.ToString();
             }
+            else
+            {
+                _icon.sprite = null;
+                _numText.text = string.Empty;
+            }
+        }        
+
+        public void Clear()
+        {
+            _icon.sprite = null;
         }
     }
 }

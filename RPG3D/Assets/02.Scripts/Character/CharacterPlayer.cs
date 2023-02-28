@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using ULB.RPG.FSM;
+using ULB.RPG.DataModels;
+using static UnityEditor.Progress;
 
 namespace ULB.RPG
 {
@@ -15,7 +17,7 @@ namespace ULB.RPG
         {
             switch (equipment.type)
             {
-                case Equipment.EquipType.RightHandWeapon:
+                case EquipType.RightHandWeapon:
                     {
                         // todo ->
                         // 이 장비를 장착하기위해 해제해야하는 장비 계산 
@@ -31,7 +33,7 @@ namespace ULB.RPG
                         SetAnimatorParameterForWeapon((Weapon)equipment);
                     }
                     break;
-                case Equipment.EquipType.LeftHandWeapon:
+                case EquipType.LeftHandWeapon:
                     {
                         if (_leftHand.childCount > 0)
                         {
@@ -40,7 +42,7 @@ namespace ULB.RPG
                         Instantiate(equipment, _leftHand);
                     }
                     break;
-                case Equipment.EquipType.DoubleHandWeapon:
+                case EquipType.DoubleHandWeapon:
                     {
                         if (_rightHand.childCount > 0)
                         {
@@ -55,15 +57,15 @@ namespace ULB.RPG
                         SetAnimatorParameterForWeapon((Weapon)equipment);
                     }
                     break;
-                case Equipment.EquipType.Top:
+                case EquipType.Top:
                     break;
-                case Equipment.EquipType.Bottom:
+                case EquipType.Bottom:
                     break;
-                case Equipment.EquipType.Head:
+                case EquipType.Head:
                     break;
-                case Equipment.EquipType.Ring:
+                case EquipType.Ring:
                     break;
-                case Equipment.EquipType.Necklace:
+                case EquipType.Necklace:
                     break;
                 default:
                     break;
@@ -77,38 +79,33 @@ namespace ULB.RPG
         {
             switch (equipment.type)
             {
-                case Equipment.EquipType.RightHandWeapon:
+                case EquipType.RightHandWeapon:
                     {
                         Destroy(equipment);
-                        Instantiate(_bareHand, _leftHand).type = Equipment.EquipType.LeftHandWeapon;
-                        Instantiate(_bareHand, _rightHand).type = Equipment.EquipType.RightHandWeapon;
+                        Instantiate(_bareHand, _leftHand).type = EquipType.LeftHandWeapon;
+                        Instantiate(_bareHand, _rightHand).type = EquipType.RightHandWeapon;
                         SetAnimatorParameterForWeapon(_bareHand);
                     }
                     break;
-                case Equipment.EquipType.LeftHandWeapon:
+                case EquipType.LeftHandWeapon:
                     break;
-                case Equipment.EquipType.DoubleHandWeapon:
+                case EquipType.DoubleHandWeapon:
                     {
-                        // todo -> 
-                        // 인벤토리공간확인 
-                        // 장착해제
-                        // 맨손장착
-                        // 인벤토리에 해제한 장비 추가
                         Destroy(equipment);
-                        Instantiate(_bareHand, _leftHand).type = Equipment.EquipType.LeftHandWeapon;
-                        Instantiate(_bareHand, _rightHand).type = Equipment.EquipType.RightHandWeapon;
+                        Instantiate(_bareHand, _leftHand).type = EquipType.LeftHandWeapon;
+                        Instantiate(_bareHand, _rightHand).type = EquipType.RightHandWeapon;
                         SetAnimatorParameterForWeapon(_bareHand);
                     }
                     break;
-                case Equipment.EquipType.Top:
+                case EquipType.Top:
                     break;
-                case Equipment.EquipType.Bottom:
+                case EquipType.Bottom:
                     break;
-                case Equipment.EquipType.Head:
+                case EquipType.Head:
                     break;
-                case Equipment.EquipType.Ring:
+                case EquipType.Ring:
                     break;
-                case Equipment.EquipType.Necklace:
+                case EquipType.Necklace:
                     break;
                 default:
                     break;
@@ -116,50 +113,52 @@ namespace ULB.RPG
             return true;
         }
 
-        public bool TryUnequip(Equipment.EquipType equipmentType)
+        public bool TryUnequip(EquipType equipmentType)
         {
             switch (equipmentType)
             {
-                case Equipment.EquipType.RightHandWeapon:
+                case EquipType.RightHandWeapon:
                     {
-                        if (_rightHand.childCount <= 0)
-                            return false;
-
-                        _rightHand.GetChild(0).GetComponent<Equipment>().Unequip(this);
-                        Destroy(_rightHand.GetChild(0).gameObject);
-                        Instantiate(_bareHand, _leftHand).type = Equipment.EquipType.LeftHandWeapon;
-                        Instantiate(_bareHand, _rightHand).type = Equipment.EquipType.RightHandWeapon;
+                        if (_rightHand.childCount > 0)
+                        {
+                            _rightHand.GetChild(0).GetComponent<Equipment>().Unequip(this);
+                            Destroy(_rightHand.GetChild(0).gameObject);
+                        }
+                        
+                        Instantiate(_bareHand, _leftHand).type = EquipType.LeftHandWeapon;
+                        Instantiate(_bareHand, _rightHand).type = EquipType.RightHandWeapon;
                         SetAnimatorParameterForWeapon(_bareHand);
                     }
                     break;
-                case Equipment.EquipType.LeftHandWeapon:
+                case EquipType.LeftHandWeapon:
                     break;
-                case Equipment.EquipType.DoubleHandWeapon:
+                case EquipType.DoubleHandWeapon:
                     {
-                        if (_rightHand.childCount <= 0)
-                            return false;
+                        if (_rightHand.childCount > 0)
+                        {
+                            _rightHand.GetChild(0).GetComponent<Equipment>().Unequip(this);
+                            Destroy(_rightHand.GetChild(0).gameObject);
+                        }
+                        if (_leftHand.childCount > 0)
+                        {
+                            _leftHand.GetChild(0).GetComponent<Equipment>().Unequip(this);
+                            Destroy(_leftHand.GetChild(0).gameObject);
+                        }
 
-                        // todo -> 
-                        // 인벤토리공간확인 
-                        // 장착해제
-                        // 맨손장착
-                        // 인벤토리에 해제한 장비 추가
-                        _rightHand.GetChild(0).GetComponent<Equipment>().Unequip(this);
-                        Destroy(_rightHand.GetChild(0).gameObject);
-                        Instantiate(_bareHand, _leftHand).type = Equipment.EquipType.LeftHandWeapon;
-                        Instantiate(_bareHand, _rightHand).type = Equipment.EquipType.RightHandWeapon;
+                        Instantiate(_bareHand, _leftHand).type = EquipType.LeftHandWeapon;
+                        Instantiate(_bareHand, _rightHand).type = EquipType.RightHandWeapon;
                         SetAnimatorParameterForWeapon(_bareHand);
                     }
                     break;
-                case Equipment.EquipType.Top:
+                case EquipType.Top:
                     break;
-                case Equipment.EquipType.Bottom:
+                case EquipType.Bottom:
                     break;
-                case Equipment.EquipType.Head:
+                case EquipType.Head:
                     break;
-                case Equipment.EquipType.Ring:
+                case EquipType.Ring:
                     break;
-                case Equipment.EquipType.Necklace:
+                case EquipType.Necklace:
                     break;
                 default:
                     break;
@@ -168,31 +167,31 @@ namespace ULB.RPG
             
             return true;
         }
-        public bool TryGetEquipment(Equipment.EquipType equipType, out Equipment equipment)
+        public bool TryGetEquipment(EquipType equipType, out Equipment equipment)
         {
             Transform equipPoint = null;
             equipment = null;
 
             switch (equipType)
             {
-                case Equipment.EquipType.RightHandWeapon:
+                case EquipType.RightHandWeapon:
                     equipPoint = _rightHand;
                     break;
-                case Equipment.EquipType.LeftHandWeapon:
+                case EquipType.LeftHandWeapon:
                     equipPoint = _leftHand;
                     break;
-                case Equipment.EquipType.DoubleHandWeapon:
+                case EquipType.DoubleHandWeapon:
                     equipPoint = _rightHand;
                     break;
-                case Equipment.EquipType.Top:
+                case EquipType.Top:
                     break;
-                case Equipment.EquipType.Bottom:
+                case EquipType.Bottom:
                     break;
-                case Equipment.EquipType.Head:
+                case EquipType.Head:
                     break;
-                case Equipment.EquipType.Ring:
+                case EquipType.Ring:
                     break;
-                case Equipment.EquipType.Necklace:
+                case EquipType.Necklace:
                     break;
                 default:
                     break;
@@ -215,6 +214,22 @@ namespace ULB.RPG
             base.Awake();
             onHpDecreased += (value) => machine.ChangeState(CharacterStateMachine.StateType.Hurt);
             onHpMin += () => machine.ChangeState(CharacterStateMachine.StateType.Die);
+
+            ItemsEquippedDataModel.instance.OnItemChanged += (equipType, itemID) =>
+            {
+                if (itemID >= 0)
+                    TryEquip((Equipment)ItemInfoAssets.instance[itemID].prefab);
+                else
+                    TryUnequip((EquipType)equipType);
+            };
+
+            for (int equipType = 0; equipType < ItemsEquippedDataModel.instance.Items.Count; equipType++)
+            {
+                if (ItemsEquippedDataModel.instance.Items[equipType] >= 0)
+                    TryEquip((Equipment)ItemInfoAssets.instance[ItemsEquippedDataModel.instance.Items[equipType]].prefab);
+                else
+                    TryUnequip((EquipType)equipType);
+            }
         }
 
         public override void Hit()
