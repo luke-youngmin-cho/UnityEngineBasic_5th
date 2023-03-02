@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ULB.RPG.Collections;
 using ULB.RPG.DataModels;
+using UnityEditor.ShaderGraph.Internal;
 
 namespace ULB.RPG.DataDependencySources
 {
@@ -14,6 +15,7 @@ namespace ULB.RPG.DataDependencySources
         public RemoveCommand removeCommand;
         public SwapCommand swapCommand;
         public EquipCommand equipCommand;
+        public SpendCommand spendCommand;
 
         #region Inventory Source
         public class InventorySource : ObservableCollection<ItemData>
@@ -75,6 +77,7 @@ namespace ULB.RPG.DataDependencySources
             removeCommand = new RemoveCommand();
             swapCommand = new SwapCommand();
             equipCommand = new EquipCommand();
+            spendCommand = new SpendCommand();
         }
 
         #region Add command
@@ -252,6 +255,45 @@ namespace ULB.RPG.DataDependencySources
 
         }
 
+        #endregion
+
+        #region Spend command
+        public class SpendCommand
+        {
+            public InventoryDataModel _dataModel;
+
+            public SpendCommand()
+            {
+                _dataModel = InventoryDataModel.instance;
+            }
+
+            public bool CanExecute(int slotID, int itemID)
+            {
+                return ItemInfoAssets.instance[itemID].prefab is Spend &&
+                       _dataModel.Items[slotID].id == itemID && 
+                       _dataModel.Items[slotID].num > 0;
+            }
+
+            public void Execute(int slotID, int itemID)
+            {
+                if (_dataModel.Items[slotID].num > 1)
+                    _dataModel.Change(slotID, new ItemData(itemID, _dataModel.Items[slotID].num - 1));
+                else
+                    _dataModel.Change(slotID, ItemData.empty);
+                 //((Spend)ItemInfoAssets.instance[itemID].prefab).hpRecoveryAmount 이걸로 플레이어 체력 회복
+            }
+
+            public bool TryExecute(int slotID, int itemID)
+            {
+                if (CanExecute(slotID, itemID))
+                {
+                    Execute(slotID, itemID);
+                    return true;
+                }
+
+                return false;
+            }
+        }
         #endregion
     }
 }

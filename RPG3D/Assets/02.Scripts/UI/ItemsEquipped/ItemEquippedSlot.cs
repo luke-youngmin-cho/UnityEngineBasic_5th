@@ -14,6 +14,7 @@ public class ItemEquippedSlot : MonoBehaviour, IPointerClickHandler
     private Color _origin;
     public event Action<EquipType, int> onRightClicked;
     private int _itemID;
+    private bool _active = true;
 
     public void Set(int itemID, bool active)
     {
@@ -28,12 +29,14 @@ public class ItemEquippedSlot : MonoBehaviour, IPointerClickHandler
         }
 
         _itemID = itemID;
+        _active = active;
     }
 
     public void Clear()
     {
         _icon.sprite = null;
         _itemID = -1;
+        _active = true;
     }
 
     private void Awake()
@@ -43,7 +46,8 @@ public class ItemEquippedSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (_active &&
+            eventData.button == PointerEventData.InputButton.Right)
         {
             onRightClicked?.Invoke(equipType, _itemID);
         }

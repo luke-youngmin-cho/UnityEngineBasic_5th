@@ -25,7 +25,10 @@ namespace ULB.RPG.UI
                 int slotID = i;
                 _slots[i].onUse += (itemID) =>
                 {
-                    _presenter.equipCommand.TryExecute(slotID, itemID);
+                    if (_presenter.spendCommand.TryExecute(slotID, itemID))
+                        Debug.Log($"[InventorySlot] : {slotID} 번째 슬롯의 아이템 {itemID} 를 소비했습니다.");
+                    else if (_presenter.equipCommand.TryExecute(slotID, itemID))
+                        Debug.Log($"[InventorySlot] : {slotID} 번째 슬롯의 아이템 {itemID} 를 장착했습니다.");
                 };
             }
             _presenter.inventorySource.OnItemAdded += (slotID, itemData) =>

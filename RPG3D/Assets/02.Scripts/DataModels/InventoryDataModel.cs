@@ -37,11 +37,12 @@ namespace ULB.RPG.DataModels
         public event Action OnCollectionChanged;
 
         public int Count => Items.Count;
-        private string _path = Application.persistentDataPath + "/InventoryData.json";
+        private string _path;
 
         public InventoryDataModel()
         {
             Items = new List<ItemData>();
+            _path = Application.persistentDataPath + "/InventoryData.json";
         }
 
         protected override void Init()
