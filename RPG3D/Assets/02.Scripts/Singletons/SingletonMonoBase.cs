@@ -24,5 +24,17 @@ public abstract class SingletonMonoBase<T> : MonoBehaviour
     public static T _instance;
     private static volatile object _lock = new object();
 
+    protected virtual void Awake()
+    {
+        lock (_lock)
+        {
+            if (_instance == null)
+            {
+                _instance = (T)this;
+                _instance.Init();
+            }
+        }
+    }
+
     protected virtual void Init() { }
 }

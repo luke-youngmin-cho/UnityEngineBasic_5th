@@ -42,12 +42,12 @@ namespace ULB.RPG.DataModels
         public InventoryDataModel()
         {
             Items = new List<ItemData>();
-            _path = Application.persistentDataPath + "/InventoryData.json";
         }
 
         protected override void Init()
         {
             base.Init();
+            _path = Application.persistentDataPath + "/InventoryData.json";
             Load();
         }
 

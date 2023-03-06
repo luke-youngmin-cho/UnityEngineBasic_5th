@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : SingletonMonoBase<CameraController>
 {
+    public bool isActivated => _isActivated;
+    private bool _isActivated;
     [SerializeField] private Transform _target;
     [SerializeField] private float _minDistance = 3.0f; // 타겟과의 최소거리
     [SerializeField] private float _maxDistance = 30.0f; // 타겟과의 최대거리
@@ -14,15 +16,17 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _yLimitMax = 80.0f; // 마우스 y 축 제한
     private float _y, _x, _distance; // 마우스 y축, x축 값, 현재 거리
 
-    private void Awake()
+    public void SetActive(bool active)
     {
+        _isActivated = active;
+    }
+
+    protected override void Init()
+    {
+        base.Init();
         _distance = Vector3.Distance(transform.position, _target.position);
         _y = transform.eulerAngles.x;
         _x = transform.eulerAngles.y;
-        if (Test.instance == null)
-        {
-            Debug.LogError("Failed to create singleton");
-        }
     }
 
     private void Start()
@@ -32,6 +36,9 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (_isActivated == false)
+            return;
+
         _x += Input.GetAxis("Mouse X") * _xMoveSpeed * Time.deltaTime;
         _y += Input.GetAxis("Mouse Y") * _yMoveSpeed * Time.deltaTime;
         _x = ClampAngle(_x, -360.0f, 360.0f);
@@ -43,11 +50,17 @@ public class CameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_isActivated == false)
+            return;
+
         _target.rotation = Quaternion.Euler(0.0f, transform.eulerAngles.y, 0.0f);
     }
 
     private void LateUpdate()
     {
+        if (_isActivated == false)
+            return;
+
         transform.rotation = Quaternion.Euler(_y, _x, 0.0f);
         transform.position = _target.position - transform.rotation * Vector3.forward * _distance;
     }
