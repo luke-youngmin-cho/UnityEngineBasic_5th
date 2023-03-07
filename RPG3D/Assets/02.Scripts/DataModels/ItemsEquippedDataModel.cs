@@ -22,12 +22,12 @@ namespace ULB.RPG.DataModels
         public ItemsEquippedDataModel()
         {
             Items = new List<int>();
-            _path = Application.persistentDataPath + "/ItemsEquippedData.json";
         }
 
         protected override void Init()
         {
             base.Init();
+            _path = Application.persistentDataPath + "/ItemsEquippedData.json";
             Load();
         }
 

@@ -10,9 +10,11 @@ namespace ULB.RPG.UI
 {
     public class InventorySlot : MonoBehaviour, IPointerClickHandler
     {
+        public int slotID;
         [SerializeField] private Image _icon;
         [SerializeField] private TMP_Text _numText;
         public event Action<int> onUse;
+        public event Action<int> onControl;
         private int _itemID;
         private int _num;
 
@@ -21,6 +23,10 @@ namespace ULB.RPG.UI
             if (eventData.button == PointerEventData.InputButton.Right)
             {
                 onUse?.Invoke(_itemID);
+            }
+            else if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                onControl?.Invoke(_itemID);
             }
         }
 
