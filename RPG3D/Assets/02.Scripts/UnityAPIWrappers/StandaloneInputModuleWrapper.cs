@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ULB.RPG.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,6 +8,39 @@ using UnityEngine.UI;
 public class StandaloneInputModuleWrapper : StandaloneInputModule
 {
     public static StandaloneInputModuleWrapper main;
+    private List<GraphicRaycaster> _graphicRaycasters = new List<GraphicRaycaster>();
+
+
+    public void RegisterGraphicRaycaster(GraphicRaycaster raycaster)
+    {
+        _graphicRaycasters.Add(raycaster);
+    }
+
+    public bool TryGetGameObjectPointed<T, K>(int pointerID, out K pointed, LayerMask ignoreMask)
+        where T : BaseRaycaster
+        where K : MonoBehaviour
+    {
+        pointed = null;
+        if (IsPointerOverGameObject(pointerID))
+        {
+            if (m_PointerData.TryGetValue(pointerID, out PointerEventData pointerEventData) &&
+                pointerEventData.pointerCurrentRaycast.module.GetType() == typeof(T))
+            {
+                List<RaycastResult> results = new List<RaycastResult>();
+                pointerEventData.pointerCurrentRaycast.module.Raycast(pointerEventData, results);
+
+                foreach (var result in results)
+                {
+                    if ((1 << result.gameObject.layer & ignoreMask) == 0 &&
+                        result.gameObject.TryGetComponent(out pointed))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     public bool TryGetGameObjectPointed<T>(int pointerID, out GameObject pointed, LayerMask ignoreMask)
         where T : BaseRaycaster
@@ -17,28 +51,37 @@ public class StandaloneInputModuleWrapper : StandaloneInputModule
             if (m_PointerData.TryGetValue(pointerID, out PointerEventData pointerEventData) &&
                 pointerEventData.pointerCurrentRaycast.module.GetType() == typeof(T))
             {
-                pointed = pointerEventData.pointerCurrentRaycast.gameObject;
-                
-                if ((1 << pointed.layer & ignoreMask) == 0)
+                List<RaycastResult> results = new List<RaycastResult>();
+
+                if (pointerEventData.pointerCurrentRaycast.module is GraphicRaycaster)
                 {
-                    return true;
+                    foreach (GraphicRaycaster graphicRaycaster in _graphicRaycasters)
+                    {
+                        graphicRaycaster.Raycast(pointerEventData, results);
+
+                        foreach (var result in results)
+                        {
+                            if ((1 << result.gameObject.layer & ignoreMask) == 0)
+                            {
+                                pointed = result.gameObject;
+                                return true;
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    List<RaycastResult> results = new List<RaycastResult>();
                     pointerEventData.pointerCurrentRaycast.module.Raycast(pointerEventData, results);
 
                     foreach (var result in results)
                     {
-                        if ((1 << result.sortingLayer & ignoreMask) == 0)
+                        if ((1 << result.gameObject.layer & ignoreMask) == 0)
                         {
                             pointed = result.gameObject;
                             return true;
                         }
                     }
-
                 }
-
             }
         }
         return false;
@@ -47,13 +90,13 @@ public class StandaloneInputModuleWrapper : StandaloneInputModule
     public bool IsPointerOverGameObject<T>(int pointerID)
         where T : BaseRaycaster
     {
-        // ¸¶¿ì½º À§Ä¡¿¡ GameObject ÀÖ´ÂÁö?
+        // ë§ˆìš°ìŠ¤ ìœ„ì¹˜ì— GameObject ìˆëŠ”ì§€?
         if (IsPointerOverGameObject(pointerID))
         {
-            // ¸¶¿ì½º µ¥ÀÌÅÍ¿¡¼­ Æ¯Á¤ ID ¿¡ ´ëÇÑ µ¥ÀÌÅÍ °¡Á®¿À±â
+            // ë§ˆìš°ìŠ¤ ë°ì´í„°ì—ì„œ íŠ¹ì • ID ì— ëŒ€í•œ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
             if (m_PointerData.TryGetValue(pointerID, out PointerEventData pointerEventData))
             {
-                // Ä³½ºÆÃ µÈ GameObject °¡ ³»°¡ Ã£´Â ¸ğµâÅ¸ÀÔÀ¸·Î Ä³½ºÆÃµÈ GameObject ¶ó¸é true ¹İÈ¯
+                // ìºìŠ¤íŒ… ëœ GameObject ê°€ ë‚´ê°€ ì°¾ëŠ” ëª¨ë“ˆíƒ€ì…ìœ¼ë¡œ ìºìŠ¤íŒ…ëœ GameObject ë¼ë©´ true ë°˜í™˜
                 return pointerEventData.pointerCurrentRaycast.module.GetType() == typeof(T);
             }
         }

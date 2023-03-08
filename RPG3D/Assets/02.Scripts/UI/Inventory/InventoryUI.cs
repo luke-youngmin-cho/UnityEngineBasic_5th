@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ULB.RPG.DataDependencySources;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ULB.RPG.UI
 {
@@ -24,13 +25,13 @@ namespace ULB.RPG.UI
                 _slots.Add(Instantiate(_slotPrefab, _content));
                 _slots[i].Set(_presenter.inventorySource[i].id, _presenter.inventorySource[i].num);
                 int slotID = i;
-                _slots[i].slotID = slotID;
+                _slots[i].slotID = slotID; 
                 _slots[i].onUse += (itemID) =>
                 {
                     if (_presenter.spendCommand.TryExecute(slotID, itemID))
-                        Debug.Log($"[InventorySlot] : {slotID} ¹øÂ° ½½·ÔÀÇ ¾ÆÀÌÅÛ {itemID} ¸¦ ¼ÒºñÇß½À´Ï´Ù.");
+                        Debug.Log($"[InventorySlot] : {slotID} ë²ˆì§¸ ìŠ¬ë¡¯ì˜ ì•„ì´í…œ {itemID} ë¥¼ ì†Œë¹„í–ˆìŠµë‹ˆë‹¤.");
                     else if (_presenter.equipCommand.TryExecute(slotID, itemID))
-                        Debug.Log($"[InventorySlot] : {slotID} ¹øÂ° ½½·ÔÀÇ ¾ÆÀÌÅÛ {itemID} ¸¦ ÀåÂøÇß½À´Ï´Ù.");
+                        Debug.Log($"[InventorySlot] : {slotID} ë²ˆì§¸ ìŠ¬ë¡¯ì˜ ì•„ì´í…œ {itemID} ë¥¼ ìž¥ì°©í–ˆìŠµë‹ˆë‹¤.");
                 };
 
                 _slots[i].onControl += (itemID) =>
@@ -56,6 +57,11 @@ namespace ULB.RPG.UI
             {
                 _slots[slotID].Set(itemData.id, itemData.num);
             };
+        }
+
+        private void Start()
+        {
+            StandaloneInputModuleWrapper.main.RegisterGraphicRaycaster(GetComponent<GraphicRaycaster>());
         }
     }
 }

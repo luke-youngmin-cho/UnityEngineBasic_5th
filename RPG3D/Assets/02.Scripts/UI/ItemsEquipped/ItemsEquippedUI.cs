@@ -6,6 +6,7 @@ using ULB.RPG.DataDependencySources;
 using ULB.RPG.DataModels;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemsEquippedUI : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class ItemsEquippedUI : MonoBehaviour
     {        
         _presenter = new ItemsEquippedPresenter();
 
-        // ÀåÂøÇÑ ¾ÆÀÌÅÛ ½½·Ô¿¡ ¿À¸¥ÂÊ Å¬¸¯½Ã ÀÌº¥Æ® µî·Ï
+        // ìž¥ì°©í•œ ì•„ì´í…œ ìŠ¬ë¡¯ì— ì˜¤ë¥¸ìª½ í´ë¦­ì‹œ ì´ë²¤íŠ¸ ë“±ë¡
         foreach (var slot in _slotList)
         {
             _slots.Add(slot.equipType, slot);
@@ -28,7 +29,7 @@ public class ItemsEquippedUI : MonoBehaviour
             };
         }
 
-        // ¿À¸¥¼Õ¹«±â ½½·ÔÀº Æ¯º°È÷ ¾ç¼Õ¹«±â ÀåÂøÁßÀÌ¾úÀ¸¸é ÀåÂøÇØÁ¦ÇÒ ¶§ ¿Þ¼Õµµ ÃÊ±âÈ­
+        // ì˜¤ë¥¸ì†ë¬´ê¸° ìŠ¬ë¡¯ì€ íŠ¹ë³„ížˆ ì–‘ì†ë¬´ê¸° ìž¥ì°©ì¤‘ì´ì—ˆìœ¼ë©´ ìž¥ì°©í•´ì œí•  ë•Œ ì™¼ì†ë„ ì´ˆê¸°í™”
         //_slots[EquipType.RightHandWeapon].onRightClicked += (equipType, itemID) =>
         //{
         //    if (((Equipment)ItemInfoAssets.instance[itemID].prefab).type == EquipType.DoubleHandWeapon)
@@ -55,6 +56,12 @@ public class ItemsEquippedUI : MonoBehaviour
             SetSlot((EquipType)equipType, itemID);
         };
     }
+
+    private void Start()
+    {
+        StandaloneInputModuleWrapper.main.RegisterGraphicRaycaster(GetComponent<GraphicRaycaster>());
+    }
+
     private void SetSlot(EquipType equipType, int itemID)
     {
         if (itemID < 0)
