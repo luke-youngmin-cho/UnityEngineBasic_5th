@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using ULB.RPG.FSM;
 using ULB.RPG.DataModels;
 using static UnityEditor.Progress;
@@ -27,9 +27,10 @@ namespace ULB.RPG
                         // 해제한 장비 인벤토리에 집어넣음
                         if (_rightHand.childCount > 0)
                         {
+                            _rightHand.GetChild(0).gameObject.GetComponent<Equipment>().Unequip(this);
                             Destroy(_rightHand.GetChild(0).gameObject);
                         }
-                        Instantiate(equipment, _rightHand);
+                        Instantiate(equipment, _rightHand).Equip(this);
                         SetAnimatorParameterForWeapon((Weapon)equipment);
                     }
                     break;
@@ -37,23 +38,26 @@ namespace ULB.RPG
                     {
                         if (_leftHand.childCount > 0)
                         {
+                            _leftHand.GetChild(0).gameObject.GetComponent<Equipment>().Unequip(this);
                             Destroy(_leftHand.GetChild(0).gameObject);
                         }
-                        Instantiate(equipment, _leftHand);
+                        Instantiate(equipment, _leftHand).Equip(this);
                     }
                     break;
                 case EquipType.DoubleHandWeapon:
                     {
                         if (_rightHand.childCount > 0)
                         {
+                            _rightHand.GetChild(0).gameObject.GetComponent<Equipment>().Unequip(this);
                             Destroy(_rightHand.GetChild(0).gameObject);
                         }
                         if (_leftHand.childCount > 0)
                         {
+                            _leftHand.GetChild(0).gameObject.GetComponent<Equipment>().Unequip(this);
                             Destroy(_leftHand.GetChild(0).gameObject);
                         }
 
-                        Instantiate(equipment, _rightHand);
+                        Instantiate(equipment, _rightHand).Equip(this);
                         SetAnimatorParameterForWeapon((Weapon)equipment);
                     }
                     break;
@@ -71,7 +75,6 @@ namespace ULB.RPG
                     break;
             }
 
-            equipment.Equip(this);
             return true;
         }
 
@@ -115,6 +118,7 @@ namespace ULB.RPG
 
         public bool TryUnequip(EquipType equipmentType)
         {
+            Equipment tmp = null;
             switch (equipmentType)
             {
                 case EquipType.RightHandWeapon:
@@ -124,9 +128,13 @@ namespace ULB.RPG
                             _rightHand.GetChild(0).GetComponent<Equipment>().Unequip(this);
                             Destroy(_rightHand.GetChild(0).gameObject);
                         }
-                        
-                        Instantiate(_bareHand, _leftHand).type = EquipType.LeftHandWeapon;
-                        Instantiate(_bareHand, _rightHand).type = EquipType.RightHandWeapon;
+
+                        tmp = Instantiate(_bareHand, _leftHand);
+                        tmp.type = EquipType.LeftHandWeapon;
+                        tmp.Equip(this);
+                        tmp = Instantiate(_bareHand, _rightHand);
+                        tmp.type = EquipType.RightHandWeapon;
+                        tmp.Equip(this);
                         SetAnimatorParameterForWeapon(_bareHand);
                     }
                     break;
@@ -145,8 +153,12 @@ namespace ULB.RPG
                             Destroy(_leftHand.GetChild(0).gameObject);
                         }
 
-                        Instantiate(_bareHand, _leftHand).type = EquipType.LeftHandWeapon;
-                        Instantiate(_bareHand, _rightHand).type = EquipType.RightHandWeapon;
+                        tmp = Instantiate(_bareHand, _leftHand);
+                        tmp.type = EquipType.LeftHandWeapon;
+                        tmp.Equip(this);
+                        tmp = Instantiate(_bareHand, _rightHand);
+                        tmp.type = EquipType.RightHandWeapon;
+                        tmp.Equip(this);
                         SetAnimatorParameterForWeapon(_bareHand);
                     }
                     break;

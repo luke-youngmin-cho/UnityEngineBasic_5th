@@ -65,6 +65,9 @@ public class InventoryItemController : MonoBehaviour, IPointerClickHandler
         _itemID = _inventoryDataModel.Items[_slotID].id;
         _itemNum = _inventoryDataModel.Items[_slotID].num;
 
+        if (_itemID < 0)
+            return;
+
         if (ItemInfoAssets.instance[_itemID] != null)
             _icon.sprite = ItemInfoAssets.instance[_itemID].icon;
 
