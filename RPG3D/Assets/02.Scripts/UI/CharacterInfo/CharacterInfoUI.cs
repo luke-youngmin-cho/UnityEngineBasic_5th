@@ -1,11 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using ULB.RPG;
+using ULB.RPG.UISystems;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
-public class CharacterInfoUI : MonoBehaviour
+public class CharacterInfoUI : MonoBehaviour, IUI
 {
     [SerializeField] private TMP_Text _str;
     [SerializeField] private TMP_Text _dex;
@@ -13,8 +14,27 @@ public class CharacterInfoUI : MonoBehaviour
     [SerializeField] private TMP_Text _luk;
     [SerializeField] private CharacterBase _character;
 
+    public Canvas canvas => _canvas;
+    private Canvas _canvas;
+    public event Action OnShow;
+    public event Action OnHide;
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+        OnHide?.Invoke();
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+        OnShow?.Invoke();
+    }
+
     private void Awake()
     {
+        _canvas = GetComponent<Canvas>();
+        CanvasManager.instance.Register(this);
+
         _character.stats[StatType.STR].onValueModifiedChanged += (valueModified) =>
         {
             int original = _character.stats[StatType.STR].value;

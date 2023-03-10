@@ -1,21 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using ULB.RPG;
 using ULB.RPG.DataDependencySources;
 using ULB.RPG.DataModels;
+using ULB.RPG.UISystems;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemsEquippedUI : MonoBehaviour
+public class ItemsEquippedUI : MonoBehaviour, IUI
 {
     [SerializeField] private List<ItemEquippedSlot> _slotList;
     public Dictionary<EquipType, ItemEquippedSlot> _slots = new Dictionary<EquipType, ItemEquippedSlot>();
     private ItemsEquippedPresenter _presenter;
 
+    public Canvas canvas => _canvas;
+    private Canvas _canvas;
+    public event Action OnShow;
+    public event Action OnHide;
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+        OnHide?.Invoke();
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+        OnShow?.Invoke();
+    }
+
     private void Awake()
-    {        
+    {
+        _canvas = GetComponent<Canvas>();
+        CanvasManager.instance.Register(this);
         _presenter = new ItemsEquippedPresenter();
 
         // 장착한 아이템 슬롯에 오른쪽 클릭시 이벤트 등록
@@ -49,7 +69,7 @@ public class ItemsEquippedUI : MonoBehaviour
         };
         _presenter.source.OnItemRemoved += (equipType, itmeID) =>
         {
-            
+
         };
         _presenter.source.OnItemChanged += (equipType, itemID) =>
         {

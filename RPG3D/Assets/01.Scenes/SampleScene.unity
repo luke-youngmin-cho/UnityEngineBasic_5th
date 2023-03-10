@@ -3429,6 +3429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 702694434}
+  _itemControllerPrefab: {fileID: 3932614803496383830, guid: 15ce556b8e6e2a6488641a385e829c24,
+    type: 3}
 --- !u!114 &702694434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6108,8 +6110,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 231.14703}
-  m_SizeDelta: {x: 600, y: 337.706}
+  m_AnchoredPosition: {x: 300, y: 326}
+  m_SizeDelta: {x: 600, y: 328.6277}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1454584729
 MonoBehaviour:

@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using ULB.RPG.DataDependencySources;
+using ULB.RPG.UISystems;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ULB.RPG.UI
 {
-    public class InventoryUI : MonoBehaviour
+    public class InventoryUI : MonoBehaviour, IUI
     {
         [SerializeField] private InventoryItemController _inventoryItemController;
         [SerializeField] private Transform _content;
@@ -14,9 +16,26 @@ namespace ULB.RPG.UI
         private List<InventorySlot> _slots;
         private InventoryPresenter _presenter;
 
+        public Canvas canvas => _canvas;
+        private Canvas _canvas;
+        public event Action OnShow;
+        public event Action OnHide;
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+            OnHide?.Invoke();
+        }
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+            OnShow?.Invoke();
+        }
 
         private void Awake()
         {
+            _canvas = GetComponent<Canvas>();
+            CanvasManager.instance.Register(this);
             _presenter = new InventoryPresenter();
 
             _slots = new List<InventorySlot>();
